@@ -39,6 +39,13 @@ Try This
 *** RENAME THE TOP LINE WITH YOUR PROJECT NAME. ***
 -->
 
+## Team Members Roll Call
+
+- [ ] Mark
+- [ ] Semmy
+- [ ] Josh
+- [ ] Pablo
+
 ## Sprint Progress
 
 We **will** be using issues for the group project. Go to the issues list to manage your progress.
