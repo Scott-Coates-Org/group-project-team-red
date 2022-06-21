@@ -44,7 +44,7 @@ Try This
 
 - [ ] Mark
 - [ ] Semmy
-- [ ] Josh
+- [✅] Josh
 - [✅] Pablo
 
 ## Sprint Progress
