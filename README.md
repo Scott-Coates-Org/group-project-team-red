@@ -42,7 +42,7 @@ Try This
 
 ## Team Members Roll Call
 
-- [ ] Mark
+- [✅] Mark
 - [ ] Semmy
 - [✅] Josh
 - [✅] Pablo
