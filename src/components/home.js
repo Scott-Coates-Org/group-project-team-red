@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 import { createWidget, fetchAllWidgets, savePhoto } from 'redux/widget'
+import SidebarNav from './admin-ui/sidebar-nav/sidebar-nav.component'
 import Layout from './layout'
 
 export default function Home(props) {
@@ -54,6 +55,7 @@ export default function Home(props) {
   return (
     <Layout {...props}>
       <nav className="d-flex flex-column align-items-center">
+        <SidebarNav></SidebarNav>
         <h1 className="my-3 text-center">Group Project</h1>
         <section>
           {!isLoaded && 'Widgets loading…'}
