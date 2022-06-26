@@ -1,10 +1,12 @@
 import SidebarNav from '../sidebar-nav/sidebar-nav.component'
 
+import { DashboardContainer } from './dashboard.styles'
+
 const Dashboard = () => {
   return (
-    <div className="dashboard-container">
+    <DashboardContainer>
       <SidebarNav></SidebarNav>
-    </div>
+    </DashboardContainer>
   )
 }
 

@@ -1,27 +1,31 @@
+import {
+  faHome,
+  faChartLine,
+  faCog,
+  faUserFriends,
+  faTags,
+  faCalendar,
+} from '@fortawesome/free-solid-svg-icons'
+
+import NavLink from '../nav-link/nav-link.component'
+
+import { SidebarNavContainer } from './sidebar-nav.styles'
+
 const SidebarNav = () => {
   return (
-    <div className="sidebarnav-container">
-      <ul className="sidebarnav-list">
-        <li className="sidebarnav-item">
-          <button className="sidebarnav-button">DASHBOARD</button>
-        </li>
-        <li className="sidebarnav-item">
-          <button className="sidebarnav-button">BOOKINGS</button>
-        </li>
-        <li className="sidebarnav-item">
-          <button className="sidebarnav-button">PRODUCTS</button>
-        </li>
-        <li className="sidebarnav-item">
-          <button className="sidebarnav-button">CUSTOMERS</button>
-        </li>
-        <li className="sidebarnav-item">
-          <button className="sidebarnav-button">REPORTS</button>
-        </li>
-        <li className="sidebarnav-item">
-          <button className="sidebarnav-button">SETTINGS</button>
-        </li>
-      </ul>
-    </div>
+    <SidebarNavContainer>
+      <NavLink route="/" label="DASHBOARD" icon={faHome}></NavLink>
+
+      <NavLink route="/" label="BOOKINGS" icon={faCalendar}></NavLink>
+
+      <NavLink route="/" label="PRODUCTS" icon={faTags}></NavLink>
+
+      <NavLink route="/" label="CUSTOMERS" icon={faUserFriends}></NavLink>
+
+      <NavLink route="/" label="REPORTS" icon={faChartLine}></NavLink>
+
+      <NavLink route="/" label="SETTINGS" icon={faCog}></NavLink>
+    </SidebarNavContainer>
   )
 }
 
