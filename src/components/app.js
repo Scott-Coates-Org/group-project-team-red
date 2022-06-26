@@ -65,7 +65,16 @@ function App() {
             />
 
             {/* this must be on the bottom */}
-            <ProtectedRoute path="/" component={Dashboard} {...props} />
+            <Route
+              exact
+              path="/"
+              render={() => <h1>Welcome to the Trampolin Park!</h1>}
+            />
+            <ProtectedRoute
+              path="/dashboard"
+              component={Dashboard}
+              {...props}
+            />
           </Switch>
         </Router>
       </AuthProvider>
@@ -111,6 +120,7 @@ function withAuthenticationRequired(Component, options) {
       if (isLoaded) {
         isAuthorized = isAuthenticated
 
+        // so far the only registered users are admins, they are always authorized because they are always authenticated
         if (!isAuthorized) {
           const opts = {
             ...loginOptions,
