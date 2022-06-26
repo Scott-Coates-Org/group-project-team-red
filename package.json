@@ -21,11 +21,13 @@
     "react-firebaseui": "^5.0.2",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.0.5",
+    "react-icons": "^4.4.0",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "reactstrap": "^8.9.0",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "styled-components": "^5.3.5"
   },
   "scripts": {
     "dev": "react-scripts start",
