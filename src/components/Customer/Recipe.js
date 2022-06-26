@@ -1,4 +1,7 @@
+//component
 import RecipeItem from './RecipeItem'
+
+//style
 import { StyledButton } from './styled/Button.styles'
 import { StyledFlexColumn } from './styled/FlexColumn.styles'
 import { StyledFlexRow } from './styled/FlexRow.styles'
