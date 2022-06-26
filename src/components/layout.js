@@ -39,9 +39,11 @@ export default function Layout(props) {
           }}
         />
       </Helmet>
+
       <header>
         <LayoutNav user={user} {...props} />
       </header>
+
       {props.children}
     </>
   )
