@@ -26,7 +26,7 @@ export default function Layout(props) {
           name="description"
           content="Learn how to build a personal website using Next.js"
         />
-        <title>Solo Project</title>
+        <title>Group Project</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Lato&display=block"
@@ -61,7 +61,7 @@ function LayoutNav(props) {
   const nav = (
     <div className="nav-wrapper border-bottom">
       <Navbar light expand="lg">
-        <NavbarBrand href="/">Solo Project</NavbarBrand>
+        <NavbarBrand href="/">Group Project</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav navbar className="ml-auto">
