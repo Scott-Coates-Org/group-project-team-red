@@ -13,6 +13,7 @@ import { getData, getDataSuccess } from 'redux/user'
 import ErrorBoundary from 'components/error-boundary'
 import Dashboard from './admin-ui/dashboard/dashboard.component.js'
 
+
 // DO NOT import BrowserRouter (as per tutorial). that caused router to not actually do anything.
 // see here: https://stackoverflow.com/questions/63554233/react-router-v5-history-push-changes-the-address-bar-but-does-not-change-the
 // https://github.com/ReactTraining/react-router/issues/4059#issuecomment-254437084
@@ -65,7 +66,18 @@ function App() {
             />
 
             {/* this must be on the bottom */}
-            <ProtectedRoute path="/" component={Dashboard} {...props} />
+
+
+            <Route
+              exact
+              path="/"
+              render={() => <h1>Welcome to the Trampolin Park!</h1>}
+            />
+            <ProtectedRoute
+              path="/dashboard"
+              component={Dashboard}
+              {...props}
+            />
           </Switch>
         </Router>
       </AuthProvider>
@@ -111,6 +123,7 @@ function withAuthenticationRequired(Component, options) {
       if (isLoaded) {
         isAuthorized = isAuthenticated
 
+        // so far the only registered users are admins, they are always authorized because they are always authenticated
         if (!isAuthorized) {
           const opts = {
             ...loginOptions,

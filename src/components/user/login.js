@@ -17,10 +17,11 @@ export default function Login(props) {
 
   const Component = componentLoginFroms[form]
 
-  // if user exists, redirect to home
+  // if user exists, redirect to dashboard
   useEffect(() => {
     if (user) {
-      const returnTo = props.location.state.appState.returnTo || '/'
+      // props.location.state.appState.returnTo now is null because unauthorized users (not admins) don't exist in our application at the moment
+      const returnTo = '/dashboard'
 
       props.history.replace(returnTo)
     }
