@@ -7,9 +7,9 @@ import {
   faCalendar,
 } from '@fortawesome/free-solid-svg-icons'
 
-import NavLink from '../nav-link/nav-link.component'
+import NavLink from '../nav-link/NavLink'
 
-import { SidebarNavContainer } from './sidebar-nav.styles'
+import { SidebarNavContainer } from './SidebarNav.styles'
 
 const SidebarNav = () => {
   return (

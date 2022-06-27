@@ -1,8 +1,8 @@
-import SidebarNav from '../sidebar-nav/sidebar-nav.component'
+import SidebarNav from '../sidebar-nav/SidebarNav'
 import ProductsList from '../products/ProductsList'
 // import ProductsForm from '../products/ProductForm'
 
-import { DashboardContainer } from './dashboard.styles'
+import { DashboardContainer } from './Dashboard.styles'
 
 const Dashboard = () => {
   return (
