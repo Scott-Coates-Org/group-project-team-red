@@ -4,11 +4,13 @@ import { combineReducers } from 'redux'
 import { reducer as user } from './user'
 import { reducer as widget } from './widget'
 import { reducer as product } from './product'
+import { reducer as room } from './room'
 
 const reducer = combineReducers({
   user,
   widget,
   product,
+  room
 })
 
 const store = configureStore({
