@@ -16,19 +16,19 @@ export default function Home(props) {
 
   const { data, isLoaded, hasErrors } = useSelector((state) => state.widget)
 
-  useEffect(() => {
-    // dispatch async thunks are promises
-    // https://redux-toolkit.js.org/api/createAsyncThunk#unwrapping-result-actions
-    dispatch(
-      createWidget({
-        title: 'my title',
-        type: 'my type',
-        photo: 'http://placekitten.com/200/300',
-      })
-    ).then(() => {
-      dispatch(fetchAllWidgets())
-    })
-  }, [dispatch])
+  // useEffect(() => {
+  //   // dispatch async thunks are promises
+  //   // https://redux-toolkit.js.org/api/createAsyncThunk#unwrapping-result-actions
+  //   dispatch(
+  //     createWidget({
+  //       title: 'my title',
+  //       type: 'my type',
+  //       photo: 'http://placekitten.com/200/300',
+  //     })
+  //   ).then(() => {
+  //     dispatch(fetchAllWidgets())
+  //   })
+  // }, [dispatch])
 
   const {
     register,

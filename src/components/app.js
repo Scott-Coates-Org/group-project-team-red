@@ -68,7 +68,7 @@ function App() {
             <Route
               exact
               path="/"
-              render={() => <h1>Welcome to the Trampolin Park!</h1>}
+              render={() => <h1>Welcome to the Trampoline Park!</h1>}
             />
             <ProtectedRoute
               path="/dashboard"
