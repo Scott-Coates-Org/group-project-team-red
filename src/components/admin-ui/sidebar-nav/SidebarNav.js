@@ -14,17 +14,21 @@ import { SidebarNavContainer } from './SidebarNav.styles'
 const SidebarNav = () => {
   return (
     <SidebarNavContainer>
-      <NavLink route="/" label="DASHBOARD" icon={faHome}></NavLink>
+      <NavLink route="/dashboard" label="DASHBOARD" icon={faHome}></NavLink>
 
-      <NavLink route="/" label="BOOKINGS" icon={faCalendar}></NavLink>
+      <NavLink route="/dashboard" label="BOOKINGS" icon={faCalendar}></NavLink>
 
-      <NavLink route="/" label="PRODUCTS" icon={faTags}></NavLink>
+      <NavLink route="/dashboard" label="PRODUCTS" icon={faTags}></NavLink>
 
-      <NavLink route="/" label="CUSTOMERS" icon={faUserFriends}></NavLink>
+      <NavLink
+        route="/dashboard"
+        label="CUSTOMERS"
+        icon={faUserFriends}
+      ></NavLink>
 
-      <NavLink route="/" label="REPORTS" icon={faChartLine}></NavLink>
+      <NavLink route="/dashboard" label="REPORTS" icon={faChartLine}></NavLink>
 
-      <NavLink route="/" label="SETTINGS" icon={faCog}></NavLink>
+      <NavLink route="/dashboard" label="SETTINGS" icon={faCog}></NavLink>
     </SidebarNavContainer>
   )
 }

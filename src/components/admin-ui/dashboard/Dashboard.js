@@ -1,8 +1,9 @@
 import SidebarNav from '../sidebar-nav/SidebarNav'
-import ProductsList from '../products/ProductsList'
-// import ProductsForm from '../products/ProductForm'
-
 import { DashboardContainer } from './Dashboard.styles'
+
+import ProductsList from '../products/ProductsList'
+import RoomsList from '../rooms/RoomsList'
+import AddOnsList from '../add-ons/AddOnsList'
 
 const Dashboard = () => {
   return (
@@ -13,6 +14,8 @@ const Dashboard = () => {
         style={{ display: 'flex', flexDirection: 'column' }}
       >
         <ProductsList />
+        <RoomsList />
+        <AddOnsList />
       </div>
     </DashboardContainer>
   )

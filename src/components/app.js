@@ -64,12 +64,12 @@ function App() {
               )}
             />
 
-            {/* this must be on the bottom */}
             <Route
               exact
               path="/"
               render={() => <h1>Welcome to the Trampoline Park!</h1>}
             />
+            {/* this must be on the bottom */}
             <ProtectedRoute
               path="/dashboard"
               component={Dashboard}

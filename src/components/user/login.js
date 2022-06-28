@@ -170,7 +170,8 @@ function EmailLogin(props) {
     // Popup signin flow rather than redirect flow.
     signInFlow: 'popup',
     // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-    signInSuccessUrl: props.location.state.appState.returnTo || '/',
+    // props.location.state.appState never exists because at the moment the setter is unreachable code
+    signInSuccessUrl: '/dashboard', // props.location.state.appState.returnTo || '/',
     // We will display Google and Facebook as auth providers.
     signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
   }
