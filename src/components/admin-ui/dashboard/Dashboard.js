@@ -1,9 +1,9 @@
-import SidebarNav from '../sidebar-nav/sidebar-nav.component'
-import ProductsList from '../products/ProductsList'
-// import ProductsForm from '../products/ProductForm'
+import SidebarNav from '../sidebar-nav/SidebarNav'
+import { DashboardContainer } from './Dashboard.styles'
 
-import { DashboardContainer } from './dashboard.styles'
+import ProductsList from '../products/ProductsList'
 import RoomsList from '../rooms/RoomsList'
+import AddOnsList from '../add-ons/AddOnsList'
 
 const Dashboard = () => {
   return (
@@ -15,6 +15,7 @@ const Dashboard = () => {
       >
         <ProductsList />
         <RoomsList />
+        <AddOnsList />
       </div>
     </DashboardContainer>
   )
