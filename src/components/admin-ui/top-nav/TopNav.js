@@ -4,12 +4,14 @@ import {
   FrogLogo,
   TopNavButtonsContainer,
 } from './TopNav.styles'
-import MainLogo from '../../Customer/assets/logo.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import TopNavLink from '../topnav-link/TopNavLink'
+import MainLogo from '../../Customer/assets/logo_cropped.png'
 import {
   faQuestionCircle,
   faUserCircle,
+  faBell,
 } from '@fortawesome/free-solid-svg-icons'
+import { TOP_NAV_LINK_TYPES } from '../topnav-link/TopNavLink'
 
 const TopNav = () => {
   return (
@@ -18,8 +20,21 @@ const TopNav = () => {
         <FrogLogo src={MainLogo} />
       </LogoContainer>
       <TopNavButtonsContainer>
-        <FontAwesomeIcon icon={faQuestionCircle} />
-        <FontAwesomeIcon icon={faUserCircle} />
+        <TopNavLink
+          route="/settings"
+          icon={faBell}
+          linkType={TOP_NAV_LINK_TYPES.base}
+        />
+        <TopNavLink
+          route="/help"
+          icon={faQuestionCircle}
+          linkType={TOP_NAV_LINK_TYPES.base}
+        />
+        <TopNavLink
+          route="/profile"
+          icon={faUserCircle}
+          linkType={TOP_NAV_LINK_TYPES.profile}
+        />
       </TopNavButtonsContainer>
     </TopNavContainer>
   )

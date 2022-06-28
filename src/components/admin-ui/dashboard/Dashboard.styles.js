@@ -3,17 +3,22 @@ import styled from 'styled-components'
 export const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
   width: 100%;
-  height: 100vh;
+  min-height: 100%;
 
-  background-color: green;
+  background-color: hsl(113, 70%, 60%);
 `
 export const BottomContainer = styled.div`
   display: flex;
-  gap: 1rem;
+  flex: 1 1 auto;
 `
 export const ContentContainer = styled.div`
   width: 100%;
-  margin-top: 1rem;
+  padding: 1rem;
+  margin: 1rem;
   background-color: white;
 `

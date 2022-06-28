@@ -12,8 +12,8 @@ export const NavLinkContainer = styled.div`
   transition: all 300ms;
 
   &:hover {
-    border-bottom: 1px solid white;
-    color: teal;
+    border-bottom: 1px solid #33bc21;
+    color: #33bc21;
   }
 `
 export const StyledLink = styled(Link)`
