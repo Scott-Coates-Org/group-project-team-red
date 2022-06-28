@@ -10,4 +10,10 @@ export const DashboardContainer = styled.div`
 `
 export const BottomContainer = styled.div`
   display: flex;
+  gap: 1rem;
+`
+export const ContentContainer = styled.div`
+  width: 100%;
+  margin-top: 1rem;
+  background-color: white;
 `

@@ -1,5 +1,15 @@
-import { TopNavContainer, LogoContainer, FrogLogo } from './TopNav.styles'
+import {
+  TopNavContainer,
+  LogoContainer,
+  FrogLogo,
+  TopNavButtonsContainer,
+} from './TopNav.styles'
 import MainLogo from '../../Customer/assets/logo.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faQuestionCircle,
+  faUserCircle,
+} from '@fortawesome/free-solid-svg-icons'
 
 const TopNav = () => {
   return (
@@ -7,6 +17,10 @@ const TopNav = () => {
       <LogoContainer>
         <FrogLogo src={MainLogo} />
       </LogoContainer>
+      <TopNavButtonsContainer>
+        <FontAwesomeIcon icon={faQuestionCircle} />
+        <FontAwesomeIcon icon={faUserCircle} />
+      </TopNavButtonsContainer>
     </TopNavContainer>
   )
 }
