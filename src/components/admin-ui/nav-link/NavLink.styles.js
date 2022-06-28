@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export const NavLinkContainer = styled.div`
   display: grid;
@@ -15,7 +16,7 @@ export const NavLinkContainer = styled.div`
     color: teal;
   }
 `
-export const NavAnchor = styled.a`
+export const StyledLink = styled(Link)`
   margin-left: 1rem;
 
   &:hover {
