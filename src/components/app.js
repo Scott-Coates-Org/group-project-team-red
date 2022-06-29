@@ -71,7 +71,7 @@ function App() {
               render={() => <h1>Welcome to the Trampoline Park!</h1>}
             />
             {/* this must be on the bottom */}
-            <ProtectedRoute path="/" component={Dashboard} {...props} />
+            <ProtectedRoute path="/admin" component={Dashboard} {...props} />
           </Switch>
         </Router>
       </AuthProvider>
