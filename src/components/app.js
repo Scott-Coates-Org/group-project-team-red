@@ -11,7 +11,13 @@ import { Route, Router, Switch } from 'react-router-dom'
 import store from 'redux/store'
 import { getData, getDataSuccess } from 'redux/user'
 import ErrorBoundary from 'components/error-boundary'
+<<<<<<< Updated upstream
 import Dashboard from './admin-ui/dashboard/dashboard.component'
+=======
+import Dashboard from './admin-ui/dashboard/Dashboard'
+import Home from './home'
+import Calendar from './Customer/Calendar'
+>>>>>>> Stashed changes
 
 // DO NOT import BrowserRouter (as per tutorial). that caused router to not actually do anything.
 // see here: https://stackoverflow.com/questions/63554233/react-router-v5-history-push-changes-the-address-bar-but-does-not-change-the
@@ -64,6 +70,27 @@ function App() {
               )}
             />
 
+<<<<<<< Updated upstream
+=======
+            <Route
+              path="/home"
+              render={(routeProps) => (
+                <Home {...routeProps} {...props} firebase={firebase} />
+              )}
+            />
+
+            <Route
+              path="/calendar"
+              render={(routeProps) => (
+                <Calendar {...routeProps} {...props} firebase={firebase} />
+              )}
+            />
+            <Route
+              exact
+              path="/"
+              render={() => <h1>Welcome to the Trampoline Park!</h1>}
+            />
+>>>>>>> Stashed changes
             {/* this must be on the bottom */}
             <ProtectedRoute path="/" component={Dashboard} {...props} />
           </Switch>
