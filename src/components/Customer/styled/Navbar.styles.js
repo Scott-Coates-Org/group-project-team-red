@@ -8,6 +8,8 @@ export const StyledNavbar = styled.nav`
   padding: 1em 2em;
   margin: 0;
   text-align: center;
+  color: white;
+
   a {
     text-decoration: none;
     padding: 0.5em 1em;

@@ -2,5 +2,9 @@
 import { StyledNavbar } from './styled/Navbar.styles'
 
 export default function Navbar() {
-  return <StyledNavbar>Hopper</StyledNavbar>
+  return (
+    <StyledNavbar>
+      <h1>Welcome to the Trampoline Park!</h1>
+    </StyledNavbar>
+  )
 }
