@@ -13,7 +13,8 @@ import { getData, getDataSuccess } from 'redux/user'
 import ErrorBoundary from 'components/error-boundary'
 import Dashboard from './admin-ui/dashboard/dashboard.component'
 import Home from './home'
-import Calendar from './Customer/modals/Calendar'
+
+import Header from './Customer/Header'
 
 // DO NOT import BrowserRouter (as per tutorial). that caused router to not actually do anything.
 // see here: https://stackoverflow.com/questions/63554233/react-router-v5-history-push-changes-the-address-bar-but-does-not-change-the
@@ -73,17 +74,7 @@ function App() {
               )}
             />
 
-            <Route
-              path="/calendar"
-              render={(routeProps) => (
-                <Calendar {...routeProps} {...props} firebase={firebase} />
-              )}
-            />
-            <Route
-              exact
-              path="/"
-              render={() => <h1>Welcome to the Trampoline Park!</h1>}
-            />
+            <Route exact path="/" render={() => <Header />} />
             {/* this must be on the bottom */}
             <ProtectedRoute path="/" component={Dashboard} {...props} />
           </Switch>

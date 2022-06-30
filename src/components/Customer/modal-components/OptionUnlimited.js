@@ -1,17 +1,28 @@
 import React, { useState } from 'react'
+
+//style
 import { StyledFlexColumn } from '../styled/FlexColumn.styles'
 import { StyledFlexRow } from '../styled/FlexRow.styles'
 import { StyledBox } from '../styled/Box.styles'
+
+//assets
 import { FaArrowDown, FaArrowUp, FaCheck } from 'react-icons/fa'
 import Socks from '../assets/socks.jpg'
+
+//components
+import Recipe from '../modals/Recipe'
 
 const color = {
   c1: '#fff',
   c2: '#35bd21',
   c3: '#333',
 }
+
+//option for unlimited pass
 export default function OptionUnlimited() {
   const [count, setCount] = useState(0)
+  const [product, setProduct] = useState('')
+  console.log(product)
 
   const [showDetails, setShowDetails] = useState(true)
   return (
@@ -25,7 +36,10 @@ export default function OptionUnlimited() {
         >
           <img src={Socks} alt="socks" width="20%" />
           <StyledFlexColumn>
-            <h5 style={{ alignSelf: 'center', padding: '0 1em ' }}>
+            <h5
+              className="product.title"
+              style={{ alignSelf: 'center', padding: '0 1em ' }}
+            >
               Unlimited Pass
             </h5>
             <p>Access to all Park attractions that are open!</p>
@@ -41,7 +55,7 @@ export default function OptionUnlimited() {
 
       {showDetails && (
         <StyledFlexRow justify="space-between" alignSelf="center">
-          <h6>Unlimited Pass 7 or Older</h6>
+          <h6 className="product-title">Unlimited Pass 7 or Older</h6>
           <StyledFlexColumn>
             <StyledFlexRow alignSelf="center">
               <h6 style={{ margin: '0 0.5em' }}>$25.00</h6>
@@ -73,7 +87,10 @@ export default function OptionUnlimited() {
                 style={{ cursor: 'pointer', flexGrow: '1' }}
                 bg={color.c1}
                 color={color.c3}
-                onClick={() => setCount((prevCount) => prevCount + 1)}
+                onClick={() => {
+                  setCount((prevCount) => prevCount + 1)
+                  setProduct(document.querySelector('.product-title').innerText)
+                }}
               >
                 <p style={{ alignSelf: 'flex-end', margin: '0', padding: '0' }}>
                   +
@@ -88,6 +105,7 @@ export default function OptionUnlimited() {
           </StyledFlexColumn>
         </StyledFlexRow>
       )}
+      {count > 0 && <Recipe />}
     </StyledFlexColumn>
   )
 }

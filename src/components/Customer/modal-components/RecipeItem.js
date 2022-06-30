@@ -5,6 +5,8 @@ import { StyledFlexRow } from '../styled/FlexRow.styles'
 //assets
 import { ImBin } from 'react-icons/im'
 
+//component to show bought product with option to delete it from the recipe
+//deleting not functional yet
 export default function RecipeItem() {
   return (
     <StyledFlexColumn>

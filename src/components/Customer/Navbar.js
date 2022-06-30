@@ -1,3 +1,4 @@
+//dummy customer navbar
 import { StyledNavbar } from './styled/Navbar.styles'
 
 export default function Navbar() {

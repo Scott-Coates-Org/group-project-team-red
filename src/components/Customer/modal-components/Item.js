@@ -14,7 +14,7 @@ const color = {
   c2: '#35bd21',
   c3: '#333',
 }
-
+//recipe single item
 export default function Item() {
   const [count, setCount] = useState(0)
 

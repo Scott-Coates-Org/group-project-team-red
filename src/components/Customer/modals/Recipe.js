@@ -7,6 +7,7 @@ import { StyledFlexColumn } from '../styled/FlexColumn.styles'
 import { StyledFlexRow } from '../styled/FlexRow.styles'
 import { StyledModal } from '../styled/Modal.styles'
 
+//full recipe component
 export default function Recipe() {
   return (
     <StyledModal top={0} left="50%" height="fit-content" width="30%">
@@ -31,7 +32,6 @@ export default function Recipe() {
         <RecipeItem />
         <RecipeItem />
         <RecipeItem />
-
         <h5
           style={{
             borderTop: '2px solid #f2f2f2',
@@ -57,10 +57,10 @@ export default function Recipe() {
           <h5>Total(inc.tax)</h5>
           <p>$82.29</p>
         </StyledFlexRow>
-
-        <StyledButton width="100%" color="#fff">
+        {/* //to be shown after everything needed is selected and done */}
+        {/* <StyledButton width="100%" color="#fff">
           Continue
-        </StyledButton>
+        </StyledButton> */}
       </StyledFlexColumn>
     </StyledModal>
   )

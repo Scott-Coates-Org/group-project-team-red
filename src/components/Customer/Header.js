@@ -15,6 +15,8 @@ const header = {
   src: Background,
   color: `#35bd21`,
 }
+
+//hero image component with dummy navbar
 export default function Header() {
   const [hideModal, setHideModal] = useState(true)
 

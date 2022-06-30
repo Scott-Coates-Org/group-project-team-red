@@ -1,18 +1,12 @@
 //style
-
 import { StyledItem } from '../styled/Item.styles'
+import { StyledFlexColumn } from '../styled/FlexColumn.styles'
 
 //components
 import Options from './Options'
-import { StyledFlexColumn } from '../styled/FlexColumn.styles'
 import OptionUnlimited from './OptionUnlimited'
 
-// const color = {
-//   c1: '#fff',
-//   c2: '#35bd21',
-//   c3: '#333',
-// }
-
+//list of options for jump pass
 export default function Product() {
   return (
     <StyledItem style={{ overflowY: 'scroll', height: '300px' }}>

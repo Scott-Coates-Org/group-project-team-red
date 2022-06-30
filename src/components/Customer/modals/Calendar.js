@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 //calendar
 import Calendar from 'react-calendar'
-import { StyledBox } from '../styled/Box.styles'
 
 //assets
 import { FaArrowLeft } from 'react-icons/fa'
@@ -12,7 +11,10 @@ import '../styled/Calendar.css'
 import { StyledContainer } from '../styled/Container.styles'
 import { StyledFlexColumn } from '../styled/FlexColumn.styles'
 import { StyledFlexRow } from '../styled/FlexRow.styles'
-import ProductSelection from './ProductSelection'
+import { StyledBox } from '../styled/Box.styles'
+
+//components
+import ProductList from '../modal-components/ProductList'
 
 //array of available time slots for the date
 const time = ['08:00', '09:00', '10:00', '14:00', '15:00']
@@ -45,7 +47,7 @@ export default function CalendarComponent() {
             onClickDay={() => setShowProductModal(true)}
           />
         </div>
-        {showProductModal && <ProductSelection />}
+        {showProductModal && <ProductList />}
       </StyledFlexColumn>
     </StyledContainer>
   )

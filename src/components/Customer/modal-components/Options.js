@@ -1,20 +1,29 @@
 import React, { useState } from 'react'
+
+//style
 import { StyledBox } from '../styled/Box.styles'
 import { StyledFlexColumn } from '../styled/FlexColumn.styles'
 import { StyledFlexRow } from '../styled/FlexRow.styles'
 
+//assets
 import { FaArrowDown, FaArrowUp, FaCheck } from 'react-icons/fa'
 import Socks from '../assets/socks.jpg'
+
+//components
 import { Times } from '../modals/Calendar'
+import Recipe from '../modals/Recipe'
 const color = {
   c1: '#fff',
   c2: '#35bd21',
   c3: '#333',
 }
-
+//different options for jump pass
 export default function Options() {
   const [showOptions, setShowOptions] = useState(true)
+  const [showRecipe, setShowRecipe] = useState(false)
   const [count, setCount] = useState(0)
+  const [product, setProduct] = useState('')
+  console.log(product)
   return (
     <StyledFlexColumn>
       <StyledFlexRow justify="space-between">
@@ -86,7 +95,14 @@ export default function Options() {
                   style={{ cursor: 'pointer', flexGrow: '1' }}
                   bg={color.c1}
                   color={color.c3}
-                  onClick={() => setCount((prevCount) => prevCount + 1)}
+                  onClick={() => {
+                    setCount((prevCount) => prevCount + 1)
+                    setShowRecipe(true)
+
+                    setProduct(
+                      document.querySelector('.product-title').innerText
+                    )
+                  }}
                 >
                   <p
                     style={{ alignSelf: 'flex-end', margin: '0', padding: '0' }}
@@ -104,6 +120,7 @@ export default function Options() {
           </StyledFlexRow>
         </StyledFlexColumn>
       )}
+      {showRecipe && <Recipe />}
     </StyledFlexColumn>
   )
 }
