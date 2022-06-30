@@ -3,6 +3,10 @@ import styled from 'styled-components'
 export const StyledBox = styled.button`
   box-sizing: border-box;
   width: ${({ width }) => width};
+<<<<<<< customer-ui-50%
+=======
+
+>>>>>>> main
   display: flex;
   justify-content: center;
   align-items: center;

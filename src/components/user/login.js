@@ -17,10 +17,11 @@ export default function Login(props) {
 
   const Component = componentLoginFroms[form]
 
-  // if user exists, redirect to home
+  // if user exists, redirect to dashboard
   useEffect(() => {
     if (user) {
-      const returnTo = props.location.state.appState.returnTo || '/'
+      // props.location.state.appState.returnTo now is null because unauthorized users (not admins) don't exist in our application at the moment
+      const returnTo = '/dashboard'
 
       props.history.replace(returnTo)
     }
@@ -62,20 +63,20 @@ function LoginForm(props) {
       .then((result) => {
         // var credential = result.credential
 
-        // // This gives you a Google Access Token. You can use it to access the Google API.
+        // This gives you a Google Access Token. You can use it to access the Google API.
         // var token = credential.accessToken
-        // // The signed-in user info.
+        // The signed-in user info.
         // var user = result.user
         // ...
         console.log(result)
       })
       .catch((error) => {
-        // // Handle Errors here.
+        // Handle Errors here.
         // var errorCode = error.code
         // var errorMessage = error.message
-        // // The email of the user's account used.
+        // The email of the user's account used.
         // var email = error.email
-        // // The firebase.auth.AuthCredential type that was used.
+        // The firebase.auth.AuthCredential type that was used.
         // var credential = error.credential
         console.error(error)
         alert(error)
@@ -169,7 +170,8 @@ function EmailLogin(props) {
     // Popup signin flow rather than redirect flow.
     signInFlow: 'popup',
     // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-    signInSuccessUrl: props.location.state.appState.returnTo || '/',
+    // props.location.state.appState never exists because at the moment the setter is unreachable code
+    signInSuccessUrl: '/dashboard', // props.location.state.appState.returnTo || '/',
     // We will display Google and Facebook as auth providers.
     signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
   }

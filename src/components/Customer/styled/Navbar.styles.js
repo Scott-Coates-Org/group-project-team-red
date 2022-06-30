@@ -8,7 +8,10 @@ export const StyledNavbar = styled.nav`
   padding: 1em 2em;
   margin: 0;
   text-align: center;
+<<<<<<< customer-ui-50%
   color: white;
+=======
+>>>>>>> main
 
   a {
     text-decoration: none;
@@ -16,9 +19,17 @@ export const StyledNavbar = styled.nav`
     color: #fff;
     text-align: center;
   }
+<<<<<<< customer-ui-50%
   a:hover {
     transform: scale(0.9);
   }
+=======
+
+  a:hover {
+    transform: scale(0.9);
+  }
+
+>>>>>>> main
   a.active {
     background: #fff;
     color: #513593;

@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { NavLinkContainer, NavAnchor } from './nav-link.styles'
+import { NavLinkContainer, StyledLink } from './NavLink.styles'
 
 const NavLink = (props) => {
   const { route, label, icon } = props
@@ -8,7 +8,7 @@ const NavLink = (props) => {
   return (
     <NavLinkContainer>
       <FontAwesomeIcon icon={icon} />
-      <NavAnchor href={route}>{label}</NavAnchor>
+      <StyledLink to={route}>{label}</StyledLink>
     </NavLinkContainer>
   )
 }
