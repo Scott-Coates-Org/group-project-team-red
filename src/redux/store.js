@@ -2,17 +2,17 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from 'redux'
 import { reducer as user } from './user'
-import { reducer as widget } from './widget'
+// import { reducer as widget } from './widget'
 import { reducer as product } from './product'
 import { reducer as room } from './room'
 import { reducer as addOn } from './addOn'
 
 const reducer = combineReducers({
   user,
-  widget,
+  // widget,
   product,
   room,
-  addOn
+  addOn,
 })
 
 const store = configureStore({

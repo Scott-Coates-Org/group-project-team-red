@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const TopNavContainer = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -10,11 +11,7 @@ export const TopNavContainer = styled.div`
 export const LogoContainer = styled.div`
   display: flex;
   align-items: center;
-<<<<<<< HEAD
   justify-content: center;
-=======
-  justify-content: left;
->>>>>>> 7c7b706a5b1d17d2e86eaee4036104fc985e6c9e
 `
 
 export const FrogLogo = styled.img`
