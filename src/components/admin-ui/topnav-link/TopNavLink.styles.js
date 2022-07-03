@@ -15,13 +15,20 @@ export const TopNavLinkContainer = styled.div`
   }
 `
 export const BaseLink = styled(Link)`
+<<<<<<< HEAD
   font-size: 1.25rem;
   padding: 0 0.5rem;
+=======
+>>>>>>> 7c7b706a5b1d17d2e86eaee4036104fc985e6c9e
   &:hover {
     text-decoration: none;
   }
 `
 
 export const ProfileLink = styled(BaseLink)`
+<<<<<<< HEAD
   font-size: 1.75rem;
+=======
+  font-size: 2rem;
+>>>>>>> 7c7b706a5b1d17d2e86eaee4036104fc985e6c9e
 `

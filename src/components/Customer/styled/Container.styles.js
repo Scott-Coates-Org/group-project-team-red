@@ -13,8 +13,11 @@ export const StyledContainer = styled.div`
   flex-direction: column;
   align-content: center;
   justify-content: center;
+<<<<<<< customer-ui-50%
+=======
 
 
+>>>>>>> main
   img {
     align-self: center;
   }

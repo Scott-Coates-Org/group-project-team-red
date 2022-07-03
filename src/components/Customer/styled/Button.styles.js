@@ -9,7 +9,10 @@ export const StyledButton = styled.button`
   color: ${({ color }) => (color ? color : '#513593')};
   background: ${({ bg }) => (bg ? bg : '#35bd21')};
   margin: ${({ margin }) => (margin ? margin : '1em 0')};
+<<<<<<< customer-ui-50%
+=======
 
+>>>>>>> main
   &:hover {
     cursor: pointer;
     box-shadow: 0 0 0 1px rgb(0 0 0 / 20%);
