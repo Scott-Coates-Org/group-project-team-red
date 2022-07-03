@@ -7,6 +7,5 @@ export const StyledRange = styled.div`
   position: fixed;
   top: 7em;
   left: 0;
-
   border-radius: 10px;
 `

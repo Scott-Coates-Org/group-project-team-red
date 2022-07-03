@@ -10,7 +10,6 @@ export const StyledCTA = styled.button`
   color: ${({ color }) => (color ? color : '#513593')};
   background: ${({ bg }) => (bg ? bg : '#35bd21')};
   margin: 0 auto 4em auto;
-
   &:hover {
     cursor: pointer;
     transform: scale(1.3);
