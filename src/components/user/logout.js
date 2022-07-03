@@ -1,14 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
 export default function Logout(props) {
-  const { firebase } = props;
+  const { firebase } = props
 
   useEffect(() => {
-    firebase.auth().signOut().then(() => {
-      props.history.replace('/login');
-    });
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        props.history.replace('/login')
+      })
+  }, [props.history])
 
-  }, [props.history]);
+  console.log(firebase.auth().user)
 
-  return 'Logging out…';
+  return 'Logging out…'
 }

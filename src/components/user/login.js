@@ -17,11 +17,12 @@ export default function Login(props) {
 
   const Component = componentLoginFroms[form]
 
-  // if user exists, redirect to dashboard
+  // if user exists, redirect to admin
   useEffect(() => {
     if (user) {
       // props.location.state.appState.returnTo now is null because unauthorized users (not admins) don't exist in our application at the moment
-      const returnTo = '/dashboard'
+      // const returnTo = props.location.state.appState.returnTo || '/admin'
+      const returnTo = '/home'
 
       props.history.replace(returnTo)
     }
@@ -171,7 +172,7 @@ function EmailLogin(props) {
     signInFlow: 'popup',
     // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
     // props.location.state.appState never exists because at the moment the setter is unreachable code
-    signInSuccessUrl: '/dashboard', // props.location.state.appState.returnTo || '/',
+    signInSuccessUrl: '/admin/home', // props.location.state.appState.returnTo || '/',
     // We will display Google and Facebook as auth providers.
     signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
   }

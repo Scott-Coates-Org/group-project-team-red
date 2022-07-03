@@ -9,26 +9,26 @@ const ProductsCollapse = () => {
     <ProductsCollapseContainer>
       <NavLink
         linkType={NAV_LINK_TYPES.collapse}
-        route="/products"
-        label="ALL PRODUCTS"
+        route="/admin/products"
+        label="All products"
         icon={faTags}
       />
       <NavLink
         linkType={NAV_LINK_TYPES.collapse}
-        route="/products"
-        label="ROOMS"
+        route="/admin/products"
+        label="Rooms"
         icon={faTags}
       />
       <NavLink
         linkType={NAV_LINK_TYPES.collapse}
-        route="/products"
-        label="PASSES"
+        route="/admin/products"
+        label="Passes"
         icon={faTags}
       />
       <NavLink
         linkType={NAV_LINK_TYPES.collapse}
-        route="/products"
-        label="ADD-ONS"
+        route="/admin/products"
+        label="Add-ons"
         icon={faTags}
       />
     </ProductsCollapseContainer>

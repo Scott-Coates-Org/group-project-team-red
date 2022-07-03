@@ -51,7 +51,7 @@ export default function Home(props) {
             createWidget({
               title: data.title,
               type: data.type,
-              photo: photoUrl,
+              photo: data.photoUrl,
             })
           ).then(() => {
             reset()

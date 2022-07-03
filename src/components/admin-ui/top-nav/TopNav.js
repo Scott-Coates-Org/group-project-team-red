@@ -33,17 +33,17 @@ const TopNav = () => {
       <TopNavButtonsContainer>
         <NavLink
           linkType={NAV_LINK_TYPES.topNavSmall}
-          route="/settings"
+          route="/admin/settings"
           icon={faBell}
         />
         <NavLink
           linkType={NAV_LINK_TYPES.topNavSmall}
-          route="/help"
+          route="/admin/help"
           icon={faQuestionCircle}
         />
         <NavButton
           buttonType={NAV_BUTTON_TYPES.topNavLarge}
-          route="/profile"
+          route="/admin/profile"
           icon={faUserCircle}
           onClick={handleAdminClick}
         />

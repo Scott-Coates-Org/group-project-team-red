@@ -15,7 +15,7 @@ const AdminCollapse = () => {
       />
       <NavLink
         linkType={NAV_LINK_TYPES.base}
-        route="/logout"
+        route="/admin/logout"
         label="Logout"
         icon={faSignOutAlt}
       />

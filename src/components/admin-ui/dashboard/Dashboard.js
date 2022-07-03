@@ -23,37 +23,37 @@ import { Route } from 'react-router-dom'
 
 export const adminRoutes = [
   {
-    path: `/home`,
+    path: '/admin/home',
     label: 'home',
     icon: faHome,
     component: () => <HomePage />,
   },
   {
-    path: '/bookings',
+    path: '/admin/bookings',
     label: 'bookings',
     icon: faCalendar,
     component: () => <BookingsPage />,
   },
   {
-    path: '/products',
+    path: '/admin/products',
     label: 'products',
     icon: faTags,
     component: () => <ProductsPage />,
   },
   {
-    path: '/customers',
+    path: '/admin/customers',
     label: 'customers',
     icon: faUserFriends,
     component: () => <CustomersPage />,
   },
   {
-    path: '/reports',
+    path: '/admin/reports',
     label: 'reports',
     icon: faChartLine,
     component: () => <ReportsPage />,
   },
   {
-    path: '/settings',
+    path: '/admin/settings',
     label: 'settings',
     icon: faCog,
     component: () => <SettingsPage />,
