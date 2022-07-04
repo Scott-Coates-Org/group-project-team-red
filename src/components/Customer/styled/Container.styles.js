@@ -3,8 +3,10 @@ import styled from 'styled-components'
 export const StyledContainer = styled.div`
   min-width: 100%;
   min-height: 100vh;
-  margin: 0;
-  padding: 0;
+   margin: ${({ margin }) => (margin ? margin : '0')};
+  padding: ${({ padding }) => (padding ? padding : '0')};
+    width: ${({ width }) => (width ? width : '100%')};
+box-sizing: border-box;
   background-image: url(${({ src }) => src})
   background-repeat: no-repeat;
   background-position: top;
@@ -13,11 +15,6 @@ export const StyledContainer = styled.div`
   flex-direction: column;
   align-content: center;
   justify-content: center;
-<<<<<<< customer-ui-50%
-=======
-
-
->>>>>>> main
   img {
     align-self: center;
   }
