@@ -13,6 +13,7 @@ import ErrorBoundary from 'components/error-boundary'
 import Home from './home'
 // import Header from './Customer/Header'
 import Dashboard from './admin-ui/dashboard/Dashboard'
+import ThankYou from './Customer/thank-you/ThankYou'
 
 // DO NOT import BrowserRouter (as per tutorial). that caused router to not actually do anything.
 // see here: https://stackoverflow.com/questions/63554233/react-router-v5-history-push-changes-the-address-bar-but-does-not-change-the
@@ -62,6 +63,13 @@ function App() {
               path="/admin/logout"
               render={(routeProps) => (
                 <Logout {...routeProps} {...props} firebase={firebase} />
+              )}
+            />
+            {/* //route for thank you page just to be able to see it */}
+            <Route
+              path="/thankyou"
+              render={(routeProps) => (
+                <ThankYou {...routeProps} {...props} firebase={firebase} />
               )}
             />
 
