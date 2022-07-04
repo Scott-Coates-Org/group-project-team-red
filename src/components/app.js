@@ -11,7 +11,7 @@ import store from 'redux/store'
 import { getData, getDataSuccess } from 'redux/user'
 import ErrorBoundary from 'components/error-boundary'
 import Home from './home'
-import Header from './Customer/Header'
+// import Header from './Customer/Header'
 import Dashboard from './admin-ui/dashboard/Dashboard'
 
 // DO NOT import BrowserRouter (as per tutorial). that caused router to not actually do anything.
@@ -51,7 +51,6 @@ function App() {
     <ErrorBoundary>
       <AuthProvider onLogin={storeUserData}>
         <Router history={history}>
-          <Dashboard />
           <Switch>
             <Route
               path="/login"
@@ -60,7 +59,7 @@ function App() {
               )}
             />
             <Route
-              path="/logout"
+              path="/admin/logout"
               render={(routeProps) => (
                 <Logout {...routeProps} {...props} firebase={firebase} />
               )}
@@ -73,7 +72,8 @@ function App() {
               )}
             />
 
-            <Route exact path="/" render={() => <Header />} />
+            {/* <Route exact path="/" render={() => <Header />} /> */}
+
             {/* this must be on the bottom */}
             <ProtectedRoute path="/admin" component={Dashboard} {...props} />
           </Switch>
@@ -91,7 +91,7 @@ export default AppWithRedux
 // https://github.com/auth0/auth0-react/blob/master/EXAMPLES.md#1-protecting-a-route-in-a-react-router-dom-app
 const ProtectedRoute = ({ component, ...args }) => {
   const WrappedComponent = withAuthenticationRequired(component, {
-    onRedirecting: () => 'resuming session…',
+    onRedirecting: () => 'Resuming session…',
   })
 
   const retVal = (
@@ -131,7 +131,7 @@ function withAuthenticationRequired(Component, options) {
             },
           }
 
-          history.push('/login', opts)
+          history.push('/admin', opts)
         }
       }
     }, [history, isAuthenticated, loginOptions, returnTo])

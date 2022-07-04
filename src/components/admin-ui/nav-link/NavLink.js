@@ -1,14 +1,39 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { NavLinkContainer, StyledLink } from './NavLink.styles'
+import {
+  NavLinkContainer,
+  BaseLink,
+  CollapseLink,
+  TopNavSmallLink,
+  TopNavLargeLink,
+} from './NavLink.styles'
 
-const NavLink = (props) => {
-  const { route, label, icon } = props
+export const NAV_LINK_TYPES = {
+  base: 'base',
+  collapse: 'collapse',
+  topNavSmall: 'topNavSmall',
+  topNavLarge: 'topNavLarge',
+}
+
+const getLinkType = (linkType = NAV_LINK_TYPES.base) => {
+  return {
+    [NAV_LINK_TYPES.base]: BaseLink,
+    [NAV_LINK_TYPES.collapse]: CollapseLink,
+    [NAV_LINK_TYPES.topNavSmall]: TopNavSmallLink,
+    [NAV_LINK_TYPES.topNavLarge]: TopNavLargeLink,
+  }[linkType]
+}
+
+const NavLink = ({ linkType, route, label = null, icon }) => {
+  const CustomLink = getLinkType(linkType)
 
   return (
     <NavLinkContainer>
-      <FontAwesomeIcon icon={icon} />
-      <StyledLink to={route}>{label}</StyledLink>
+      <CustomLink to={route}>
+        <FontAwesomeIcon icon={icon} />
+
+        {label && <label>{label}</label>}
+      </CustomLink>
     </NavLinkContainer>
   )
 }

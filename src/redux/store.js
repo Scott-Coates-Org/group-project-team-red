@@ -12,7 +12,7 @@ const reducer = combineReducers({
   widget,
   product,
   room,
-  addOn
+  addOn,
 })
 
 const store = configureStore({
