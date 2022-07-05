@@ -5,7 +5,8 @@ import { StyledRange } from '../styled/Range.styles'
 import { StyledFlexColumn } from '../styled/FlexColumn.styles'
 import { StyledFlexRow } from '../styled/FlexRow.styles'
 import { StyledButton } from '../styled/Button.styles'
-
+import styled from 'styled-components'
+import { Form } from 'reactstrap'
 //assets
 import {
   FaArrowLeft,
@@ -18,17 +19,51 @@ import {
 } from 'react-icons/fa'
 import { SiAmericanexpress, SiVisa } from 'react-icons/si'
 
-//components
+//stripe
+import { CardElement } from '@stripe/react-stripe-js'
 
+//components
+import CustomerDetails from './CustomerDetail'
 import Recipe from '../modals/Recipe'
 
-import { Form } from 'reactstrap'
-import CustomerDetails from './CustomerDetail'
+const CardElementContainer = styled.div`
+  height: 40px;
+  display: flex;
+  align-items: center;
 
-//components showing add-ons options
+  & .StripeElement {
+    width: 100%;
+    padding: 15px;
+  }
+`
+const cardElementOpts = {
+  style: {
+    base: {
+      color: 'black',
+      border: '2px solid black',
+
+      '::placeholder': {
+        color: 'lightgray',
+      },
+    },
+    invalid: {
+      color: 'red',
+      iconColor: 'red',
+    },
+  },
+  hidePostalCode: true,
+}
+//components showing payment details
 export default function PaymentDetails() {
+  const [checkoutError, setCheckoutError] = useState(false)
+
+  //dummy state to make buttons back and continue funtional
   const [step3, setStep3] = useState(false)
   const [step4, setStep4] = useState(true)
+
+  const handleCardDetailsChange = (ev) => {
+    ev.error ? setCheckoutError(ev.error.message) : setCheckoutError()
+  }
   return (
     <StyledFlexRow>
       {step4 && (
@@ -124,11 +159,17 @@ export default function PaymentDetails() {
               </label>
               <label>
                 <p>Card number</p>
-                <input
+                <CardElementContainer>
+                  <CardElement
+                    options={cardElementOpts}
+                    onChange={handleCardDetailsChange}
+                  />
+                </CardElementContainer>
+                {/* <input
                   type="number"
                   style={{ width: '100%' }}
                   placeholder={`1234 5678 9012 3456 `}
-                />
+                /> */}
               </label>
               <StyledFlexRow justify="space-between">
                 <label>
@@ -140,6 +181,7 @@ export default function PaymentDetails() {
                   <input type="number" placeholder="3 digits" />
                 </label>
               </StyledFlexRow>
+
               <StyledButton width="100%">
                 <FaLock></FaLock> Pay $82.29
               </StyledButton>
@@ -172,6 +214,7 @@ export default function PaymentDetails() {
               </p>
             </StyledFlexRow>
           </Form>
+          {checkoutError && <div> Error</div>}
           <hr />
           <StyledFlexRow justify="space-around">
             <StyledButton

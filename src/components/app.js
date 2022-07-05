@@ -14,6 +14,7 @@ import Home from './home'
 // import Header from './Customer/Header'
 import Dashboard from './admin-ui/dashboard/Dashboard'
 import ThankYou from './Customer/thank-you/ThankYou'
+import Layout from './layout'
 
 // DO NOT import BrowserRouter (as per tutorial). that caused router to not actually do anything.
 // see here: https://stackoverflow.com/questions/63554233/react-router-v5-history-push-changes-the-address-bar-but-does-not-change-the
@@ -52,39 +53,41 @@ function App() {
     <ErrorBoundary>
       <AuthProvider onLogin={storeUserData}>
         <Router history={history}>
-          <Switch>
-            <Route
-              path="/login"
-              render={(routeProps) => (
-                <Login {...routeProps} {...props} firebase={firebase} />
-              )}
-            />
-            <Route
-              path="/admin/logout"
-              render={(routeProps) => (
-                <Logout {...routeProps} {...props} firebase={firebase} />
-              )}
-            />
-            {/* //route for thank you page just to be able to see it */}
-            <Route
-              path="/thankyou"
-              render={(routeProps) => (
-                <ThankYou {...routeProps} {...props} firebase={firebase} />
-              )}
-            />
+          <Layout>
+            <Switch>
+              <Route
+                path="/login"
+                render={(routeProps) => (
+                  <Login {...routeProps} {...props} firebase={firebase} />
+                )}
+              />
+              <Route
+                path="/admin/logout"
+                render={(routeProps) => (
+                  <Logout {...routeProps} {...props} firebase={firebase} />
+                )}
+              />
+              {/* //route for thank you page just to be able to see it */}
+              <Route
+                path="/thankyou"
+                render={(routeProps) => (
+                  <ThankYou {...routeProps} {...props} firebase={firebase} />
+                )}
+              />
 
-            <Route
-              path="/home"
-              render={(routeProps) => (
-                <Home {...routeProps} {...props} firebase={firebase} />
-              )}
-            />
+              <Route
+                path="/home"
+                render={(routeProps) => (
+                  <Home {...routeProps} {...props} firebase={firebase} />
+                )}
+              />
 
-            {/* <Route exact path="/" render={() => <Header />} /> */}
+              {/* <Route exact path="/" render={() => <Header />} /> */}
 
-            {/* this must be on the bottom */}
-            <ProtectedRoute path="/admin" component={Dashboard} {...props} />
-          </Switch>
+              {/* this must be on the bottom */}
+              <ProtectedRoute path="/admin" component={Dashboard} {...props} />
+            </Switch>
+          </Layout>
         </Router>
       </AuthProvider>
     </ErrorBoundary>
