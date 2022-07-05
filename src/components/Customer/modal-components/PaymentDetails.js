@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 //style
 import { StyledModal } from '../styled/Modal.styles'
 import { StyledRange } from '../styled/Range.styles'
@@ -44,6 +44,7 @@ export default function PaymentDetails({ customer }) {
 
   //price should be taken from the recipe total
   //needed vars
+  const history = useHistory()
   const [isProcessing, setIsProcessing] = useState(false)
   const [checkoutError, setCheckoutError] = useState()
 
@@ -58,8 +59,7 @@ export default function PaymentDetails({ customer }) {
     ev.error ? setCheckoutError(ev.error.message) : setCheckoutError()
   }
 
-  const successfulCheckout = () => <Redirect to="/thankyou" />
-
+  const successfulCheckout = () => history.push('/thankyou')
   const handleSubmit = async (e) => {
     e.preventDefault()
 
