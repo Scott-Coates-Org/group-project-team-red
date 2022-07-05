@@ -5,7 +5,7 @@ import { StyledRange } from '../styled/Range.styles'
 import { StyledFlexColumn } from '../styled/FlexColumn.styles'
 import { StyledFlexRow } from '../styled/FlexRow.styles'
 import { StyledButton } from '../styled/Button.styles'
-import styled from 'styled-components'
+
 import { Form } from 'reactstrap'
 //assets
 import {
@@ -19,51 +19,20 @@ import {
 } from 'react-icons/fa'
 import { SiAmericanexpress, SiVisa } from 'react-icons/si'
 
-//stripe
-import { CardElement } from '@stripe/react-stripe-js'
-
 //components
 import CustomerDetails from './CustomerDetail'
 import Recipe from '../modals/Recipe'
 
-const CardElementContainer = styled.div`
-  height: 40px;
-  display: flex;
-  align-items: center;
-
-  & .StripeElement {
-    width: 100%;
-    padding: 15px;
-  }
-`
-const cardElementOpts = {
-  style: {
-    base: {
-      color: 'black',
-      border: '2px solid black',
-
-      '::placeholder': {
-        color: 'lightgray',
-      },
-    },
-    invalid: {
-      color: 'red',
-      iconColor: 'red',
-    },
-  },
-  hidePostalCode: true,
-}
+// //stripe
+// import { CardElement } from '@stripe/react-stripe-js'
 //components showing payment details
-export default function PaymentDetails() {
-  const [checkoutError, setCheckoutError] = useState(false)
-
+export default function PaymentDetails({ customer }) {
   //dummy state to make buttons back and continue funtional
   const [step3, setStep3] = useState(false)
   const [step4, setStep4] = useState(true)
 
-  const handleCardDetailsChange = (ev) => {
-    ev.error ? setCheckoutError(ev.error.message) : setCheckoutError()
-  }
+  const [paymentMethod, setPaymentMethod] = useState('')
+  console.log(paymentMethod, customer)
   return (
     <StyledFlexRow>
       {step4 && (
@@ -95,6 +64,7 @@ export default function PaymentDetails() {
                       type="radio"
                       style={{ margin: '0 1em' }}
                       name="paymentMethod"
+                      onClick={() => setPaymentMethod('card')}
                     />
                     <FaCreditCard
                       style={{
@@ -156,20 +126,43 @@ export default function PaymentDetails() {
                     />
                   </StyledFlexRow>
                 </StyledFlexRow>
+                <StyledFlexRow justify="left" margin="0.5em auto">
+                  <input
+                    type="radio"
+                    style={{ margin: '0 1em' }}
+                    name="paymentMethod"
+                    onClick={() => setPaymentMethod('wallet')}
+                  />
+                  <FaGooglePay
+                    style={{
+                      alignContent: 'left',
+                      margin: '0 ',
+                      width: '1.5em',
+                      alignSelf: 'center',
+                      fontSize: '2em',
+                      border: '1px solid black',
+                      borderRadius: '5px',
+                    }}
+                  />
+                  <p
+                    style={{
+                      alignContent: 'left',
+                      alignSelf: 'center',
+                      margin: '0 0.3em',
+                    }}
+                  >
+                    Google Pay
+                  </p>
+                </StyledFlexRow>
               </label>
               <label>
                 <p>Card number</p>
-                <CardElementContainer>
-                  <CardElement
-                    options={cardElementOpts}
-                    onChange={handleCardDetailsChange}
-                  />
-                </CardElementContainer>
-                {/* <input
+
+                <input
                   type="number"
                   style={{ width: '100%' }}
                   placeholder={`1234 5678 9012 3456 `}
-                /> */}
+                />
               </label>
               <StyledFlexRow justify="space-between">
                 <label>
@@ -186,35 +179,9 @@ export default function PaymentDetails() {
                 <FaLock></FaLock> Pay $82.29
               </StyledButton>
             </StyledFlexColumn>
-            <StyledFlexRow justify="left">
-              <input
-                type="radio"
-                style={{ margin: '0 1em' }}
-                name="paymentMethod"
-              />
-              <FaGooglePay
-                style={{
-                  alignContent: 'left',
-                  margin: '0 ',
-                  width: '1.5em',
-                  alignSelf: 'center',
-                  fontSize: '2em',
-                  border: '1px solid black',
-                  borderRadius: '5px',
-                }}
-              />
-              <p
-                style={{
-                  alignContent: 'left',
-                  alignSelf: 'center',
-                  margin: '0 0.3em',
-                }}
-              >
-                Google Pay
-              </p>
-            </StyledFlexRow>
+            {/* <CardElement /> */}
           </Form>
-          {checkoutError && <div> Error</div>}
+          {/* {checkoutError && <div> Error</div>} */}
           <hr />
           <StyledFlexRow justify="space-around">
             <StyledButton

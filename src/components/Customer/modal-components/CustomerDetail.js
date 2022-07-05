@@ -10,11 +10,10 @@ import { Link } from 'react-router-dom'
 import { FaArrowLeft } from 'react-icons/fa'
 
 //components
-
 import Recipe from '../modals/Recipe'
-import PaymentDetails from './PaymentDetails'
 import { Form } from 'reactstrap'
 import { StyledInfoBlue } from '../styled/InfoBlue.styles'
+import PaymentDetails from './PaymentDetails'
 
 export default function CustomerDetails() {
   const [step3, setStep3] = useState(true)
@@ -26,12 +25,20 @@ export default function CustomerDetails() {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
 
-  const [newUser, setNewUser] = useState({})
+  const [newUser, setNewUser] = useState({
+    firstName: '',
+    lastName: '',
+    cellNumber: '',
+    zipCode: '',
+    email: '',
+  })
 
   const handleSubmit = () => {
-    setNewUser(firstName, lastName, email, cellNumber, zipCode)
+    if (email && cellNumber && zipCode && firstName && lastName) {
+      return setNewUser({ firstName, lastName, email, cellNumber, zipCode })
+    }
   }
-  console.log(newUser)
+
   return (
     <StyledFlexRow>
       {step3 && (
@@ -73,7 +80,7 @@ export default function CustomerDetails() {
             the Park!
             https://www.altitudetrampolinepark.com/locations/appleton/about/safety
           </StyledInfoBlue>
-          <Form onSubmit={() => handleSubmit()}>
+          <Form>
             <StyledFlexColumn>
               <StyledFlexRow padding="0.5em 0" justify="space-between">
                 <StyledFlexColumn>
@@ -226,9 +233,11 @@ export default function CustomerDetails() {
                 <StyledButton
                   width="50%"
                   color="#fff"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault()
                     setStep4(true)
                     setStep3(false)
+                    handleSubmit()
                   }}
                   type="submit"
                 >
@@ -239,7 +248,7 @@ export default function CustomerDetails() {
           </Form>
         </StyledModal>
       )}
-      {step4 && <PaymentDetails />}
+      {step4 && newUser && <PaymentDetails customer={newUser} />}
 
       <Recipe />
     </StyledFlexRow>
