@@ -2,11 +2,11 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 //style
-import { StyledModal } from '../styled/Modal.styles'
-import { StyledRange } from '../styled/Range.styles'
-import { StyledFlexColumn } from '../styled/FlexColumn.styles'
-import { StyledFlexRow } from '../styled/FlexRow.styles'
-import { StyledButton } from '../styled/Button.styles'
+import { StyledModal } from '../../styled/Modal.styles'
+import { StyledRange } from '../../styled/Range.styles'
+import { StyledFlexColumn } from '../../styled/FlexColumn.styles'
+import { StyledFlexRow } from '../../styled/FlexRow.styles'
+import { StyledButton } from '../../styled/Button.styles'
 
 import { Form } from 'reactstrap'
 //assets
@@ -22,8 +22,8 @@ import {
 import { SiAmericanexpress, SiVisa } from 'react-icons/si'
 
 //components
-import CustomerDetails from './CustomerDetail'
-import Recipe from '../modals/Recipe'
+import CustomerDetails from '../CustomerDetail'
+import Recipe from '../../modals/Recipe'
 //NOTE: some of this imports and set ups should be done in layout component but when I did it there the Card input field wasn't rendering in this modal
 //stripe
 import { loadStripe } from '@stripe/stripe-js'
@@ -33,6 +33,7 @@ import {
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js'
+
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY)
 
 //components showing payment details
@@ -72,12 +73,9 @@ export default function PaymentDetails({ customer }) {
     const cardElement = elements.getElement(CardElement)
 
     try {
-      const { data: clientSecret } = await axios.post(
-        '/src/api/payment_intents',
-        {
-          amount: price * 100,
-        }
-      )
+      const { data: clientSecret } = await axios.post('./api/payment_intent', {
+        amount: price * 100,
+      })
 
       const paymentMethodReq = await stripe.createPaymentMethod({
         type: 'card',

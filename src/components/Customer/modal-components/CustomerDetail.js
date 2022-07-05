@@ -13,7 +13,7 @@ import { FaArrowLeft } from 'react-icons/fa'
 import Recipe from '../modals/Recipe'
 import { Form } from 'reactstrap'
 import { StyledInfoBlue } from '../styled/InfoBlue.styles'
-import PaymentDetails from './PaymentDetails'
+import PaymentDetails from './stripe/PaymentDetails'
 
 export default function CustomerDetails() {
   const [step3, setStep3] = useState(true)
