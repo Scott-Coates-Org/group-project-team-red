@@ -13,6 +13,7 @@ import ErrorBoundary from 'components/error-boundary'
 import Home from './home'
 // import Header from './Customer/Header'
 import Dashboard from './admin-ui/dashboard/Dashboard'
+import CustomerWaiver from './Customer/waiver/CustomerWaiver'
 import ThankYou from './Customer/thank-you/ThankYou'
 import Layout from './layout'
 
@@ -53,41 +54,53 @@ function App() {
     <ErrorBoundary>
       <AuthProvider onLogin={storeUserData}>
         <Router history={history}>
-          <Layout>
-            <Switch>
-              <Route
-                path="/login"
-                render={(routeProps) => (
-                  <Login {...routeProps} {...props} firebase={firebase} />
-                )}
-              />
-              <Route
-                path="/admin/logout"
-                render={(routeProps) => (
-                  <Logout {...routeProps} {...props} firebase={firebase} />
-                )}
-              />
-              {/* //route for thank you page just to be able to see it */}
-              <Route
-                path="/thankyou"
-                render={(routeProps) => (
-                  <ThankYou {...routeProps} {...props} firebase={firebase} />
-                )}
-              />
 
-              <Route
-                path="/home"
-                render={(routeProps) => (
-                  <Home {...routeProps} {...props} firebase={firebase} />
-                )}
-              />
+          <Switch>
+            <Route
+              path="/login"
+              render={(routeProps) => (
+                <Login {...routeProps} {...props} firebase={firebase} />
+              )}
+            />
+            <Route
+              path="/admin/logout"
+              render={(routeProps) => (
+                <Logout {...routeProps} {...props} firebase={firebase} />
+              )}
+            />
+            {/* //route for thank you page just to be able to see it */}
+            <Route
+              path="/thankyou"
+              render={(routeProps) => (
+                <ThankYou {...routeProps} {...props} firebase={firebase} />
+              )}
+            />
 
-              {/* <Route exact path="/" render={() => <Header />} /> */}
+            <Route
+              path="/home"
+              render={(routeProps) => (
+                <Home {...routeProps} {...props} firebase={firebase} />
+              )}
+            />
 
-              {/* this must be on the bottom */}
-              <ProtectedRoute path="/admin" component={Dashboard} {...props} />
-            </Switch>
-          </Layout>
+            {/* dummy route for seein waiver */}
+            <Route
+              path="/waiver"
+              render={(routeProps) => (
+                <CustomerWaiver
+                  {...routeProps}
+                  {...props}
+                  firebase={firebase}
+                />
+              )}
+            />
+
+            {/* <Route exact path="/" render={() => <Header />} /> */}
+
+            {/* this must be on the bottom */}
+            <ProtectedRoute path="/admin" component={Dashboard} {...props} />
+          </Switch>
+
         </Router>
       </AuthProvider>
     </ErrorBoundary>
