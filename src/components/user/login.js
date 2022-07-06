@@ -22,7 +22,7 @@ export default function Login(props) {
     if (user) {
       // props.location.state.appState.returnTo now is null because unauthorized users (not admins) don't exist in our application at the moment
       // const returnTo = props.location.state.appState.returnTo || '/admin'
-      const returnTo = '/home'
+      const returnTo = '/'
 
       props.history.replace(returnTo)
     }

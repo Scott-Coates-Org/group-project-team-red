@@ -75,12 +75,12 @@ function App() {
               )}
             />
 
-            <Route
+            {/* <Route
               path="/home"
               render={(routeProps) => (
                 <Home {...routeProps} {...props} firebase={firebase} />
               )}
-            />
+            /> */}
 
             {/* dummy route for seein waiver */}
             <Route
@@ -94,7 +94,13 @@ function App() {
               )}
             />
 
-            {/* <Route exact path="/" render={() => <Header />} /> */}
+            <Route
+              exact
+              path="/"
+              render={(routeProps) => (
+                <Home {...routeProps} {...props} firebase={firebase} />
+              )}
+            />
 
             {/* this must be on the bottom */}
             <ProtectedRoute path="/admin" component={Dashboard} {...props} />
