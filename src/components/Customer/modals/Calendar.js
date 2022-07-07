@@ -20,7 +20,7 @@ import ProductList from '../modal-components/ProductList'
 const time = ['08:00', '09:00', '10:00', '14:00', '15:00']
 
 //calendar component
-export default function CalendarComponent() {
+export default function CalendarComponent({ homeHideModalState }) {
   const [date, setDate] = useState(new Date())
 
   const [showProductModal, setShowProductModal] = useState(false)
@@ -34,7 +34,8 @@ export default function CalendarComponent() {
           }}
         >
           <div>
-            <FaArrowLeft /> <span>Step 1 of 4</span>
+            <FaArrowLeft onClick={() => homeHideModalState(true)} />
+            <span>Step 1 of 4</span>
           </div>
 
           <h3>Choose the date</h3>
@@ -47,7 +48,9 @@ export default function CalendarComponent() {
             onClickDay={() => setShowProductModal(true)}
           />
         </div>
-        {showProductModal && <ProductList />}
+        {showProductModal && (
+          <ProductList step1NextPageState={setShowProductModal} />
+        )}
       </StyledFlexColumn>
     </StyledContainer>
   )

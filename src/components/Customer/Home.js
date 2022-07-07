@@ -3,7 +3,6 @@ import { useState } from 'react'
 import Navbar from './Navbar'
 import CalendarComponent from './modals/Calendar'
 
-// import Modal from './Modal'
 //style
 import { StyledContainer } from './styled/Container.styles'
 import { StyledCTA } from './styled/CTA.styles'
@@ -35,8 +34,7 @@ export default function Home() {
 
       {!hideModal && (
         <StyledContainer>
-          <CalendarComponent />
-          {/* <Modal /> */}
+          <CalendarComponent homeHideModalState={setHideModal} />
         </StyledContainer>
       )}
     </StyledContainer>

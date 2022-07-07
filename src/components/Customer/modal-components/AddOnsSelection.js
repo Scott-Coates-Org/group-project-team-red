@@ -15,8 +15,14 @@ import ItemList from './ItemList'
 import Recipe from '../modals/Recipe'
 
 //components showing add-ons options
-export default function AddOnsSelection() {
+export default function AddOnsSelection({ step2NextPageState }) {
   const [step3, setStep3] = useState(true)
+
+  const goBack = () => {
+    setStep3(false)
+    step2NextPageState(false)
+  }
+
   return (
     <StyledFlexRow>
       {step3 && (
@@ -33,7 +39,8 @@ export default function AddOnsSelection() {
               }}
             >
               <div>
-                <FaArrowLeft /> <span>Step 3 of 4</span>
+                {/* TODO: Functionality works, need to implement the clickable hover effect */}
+                <FaArrowLeft onClick={goBack} /> <span>Step 3 of 4</span>
               </div>
 
               <h3>Select add-ons</h3>
@@ -55,9 +62,7 @@ export default function AddOnsSelection() {
           <hr />
           <StyledFlexRow justify="space-between">
             <StyledButton
-              onClick={() => {
-                setStep3(false)
-              }}
+              onClick={goBack}
               bg="#d9d9d9"
               color="#000"
               width="130px"

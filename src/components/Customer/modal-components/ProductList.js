@@ -14,8 +14,9 @@ import Product from './Product'
 import AddOnsSelection from './AddOnsSelection'
 
 //modal for selection of jump pass
-export default function ProductList() {
+export default function ProductList({ step1NextPageState }) {
   const [nextStep, setNextStep] = useState(false)
+
   const product = 'something'
   return (
     <StyledModal id="step2" width="35%" height="100%">
@@ -32,7 +33,8 @@ export default function ProductList() {
             <StyledRange bg="#35bd21" width="20%" />
           </StyledRange>
           <div>
-            <FaArrowLeft /> <span>Step 2 of 4</span>
+            <FaArrowLeft onClick={() => step1NextPageState(false)} />
+            <span>Step 2 of 4</span>
           </div>
 
           <h3>Choose Product</h3>
@@ -56,7 +58,7 @@ export default function ProductList() {
           >
             Continue
           </StyledButton>
-          {nextStep && <AddOnsSelection />}
+          {nextStep && <AddOnsSelection step2NextPageState={setNextStep} />}
         </StyledFlexColumn>
       </StyledFlexColumn>
     </StyledModal>
