@@ -4,7 +4,7 @@ export const StyledFlexRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: ${({ justify }) => (justify ? justify : 'left')};
-  align-content: center;
+  align-content: ${({ align }) => (align ? align : 'center')};
 
   box-sizing: border-box;
   height: fit-content;

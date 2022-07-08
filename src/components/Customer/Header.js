@@ -2,7 +2,7 @@ import { useState } from 'react'
 //components
 import Navbar from './Navbar'
 
-import Modal from './Modal'
+// import Modal from './Modal'
 //style
 import { StyledContainer } from './styled/Container.styles'
 import { StyledCTA } from './styled/CTA.styles'
@@ -36,7 +36,7 @@ export default function Header() {
       {!hideModal && (
         <StyledContainer>
           <CalendarComponent />
-          <Modal />
+          {/* <Modal /> */}
         </StyledContainer>
       )}
     </StyledContainer>

@@ -14,12 +14,15 @@ import Socks from '../assets/socks.jpg'
 import ItemList from './ItemList'
 import Recipe from '../modals/Recipe'
 
+import CustomerDetails from './CustomerDetail'
+
 //components showing add-ons options
 export default function AddOnsSelection() {
-  const [step3, setStep3] = useState(true)
+  const [step2, setStep2] = useState(true)
+  const [step3, setStep3] = useState(false)
   return (
     <StyledFlexRow>
-      {step3 && (
+      {step2 && (
         <StyledModal top={0} left="0" height="100%" width="35%">
           <div>
             <hr />
@@ -56,7 +59,7 @@ export default function AddOnsSelection() {
           <StyledFlexRow justify="space-between">
             <StyledButton
               onClick={() => {
-                setStep3(false)
+                setStep2(false)
               }}
               bg="#d9d9d9"
               color="#000"
@@ -65,12 +68,20 @@ export default function AddOnsSelection() {
               Back
             </StyledButton>
 
-            <StyledButton width="230px" color="#fff">
+            <StyledButton
+              width="230px"
+              color="#fff"
+              onClick={() => {
+                setStep3(true)
+                setStep2(false)
+              }}
+            >
               Continue
             </StyledButton>
           </StyledFlexRow>
         </StyledModal>
       )}
+      {step3 && <CustomerDetails />}
 
       <Recipe />
     </StyledFlexRow>

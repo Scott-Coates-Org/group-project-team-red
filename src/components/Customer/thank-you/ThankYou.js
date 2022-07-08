@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyledContainer } from '../styled/Container.styles'
 import { StyledFlexColumn } from '../styled/FlexColumn.styles'
+import Confetti from 'react-confetti'
 
 export default function ThankYou() {
   return (
@@ -9,6 +10,7 @@ export default function ThankYou() {
         background: '#5BE786',
       }}
     >
+      <Confetti width={window.innerWidth} />
       <StyledFlexColumn
         align="center"
         style={{
