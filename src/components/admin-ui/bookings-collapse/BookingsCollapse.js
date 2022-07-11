@@ -33,7 +33,7 @@ const BookingsCollapse = () => {
       />
       <NavLink
         linkType={NAV_LINK_TYPES.collapse}
-        route="/admin/bookings"
+        route="/admin/bookings/calendar"
         label="Calendar"
         icon={faCalendar}
       />
