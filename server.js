@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 // This is your test secret API key.
 const stripe = require('stripe')(
@@ -7,6 +8,8 @@ const stripe = require('stripe')(
 
 app.use(express.static('public'))
 app.use(express.json())
+app.use(cors())
+// const YOUR_DOMAIN = 'http://localhost:4242'
 
 const calculateOrderAmount = (items) => {
   // Replace this constant with a calculation of the order's amount
@@ -14,6 +17,14 @@ const calculateOrderAmount = (items) => {
   // people from directly manipulating the amount on the client
   return 1400
 }
+var corsOptions = {
+  origin: 'http://localhost/4242',
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.get('/create-payment-intent', cors(corsOptions), function (req, res, next) {
+  res.json({ msg: 'This is CORS-enabled for all origins!' })
+})
 
 app.post('/create-payment-intent', async (req, res) => {
   const { items } = req.body
