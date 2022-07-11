@@ -15,7 +15,8 @@ import Home from './home'
 import Dashboard from './admin-ui/dashboard/Dashboard'
 import CustomerWaiver from './Customer/waiver/CustomerWaiver'
 import ThankYou from './Customer/thank-you/ThankYou'
-import Layout from './layout'
+
+import StripePayment from './Customer/modal-components/stripe/StripePayment'
 
 // DO NOT import BrowserRouter (as per tutorial). that caused router to not actually do anything.
 // see here: https://stackoverflow.com/questions/63554233/react-router-v5-history-push-changes-the-address-bar-but-does-not-change-the
@@ -54,7 +55,6 @@ function App() {
     <ErrorBoundary>
       <AuthProvider onLogin={storeUserData}>
         <Router history={history}>
-
           <Switch>
             <Route
               path="/login"
@@ -83,6 +83,14 @@ function App() {
               )}
             />
 
+            {/* //route for stripe checkout page just to be able to see it */}
+            <Route
+              path="/payment"
+              render={(routeProps) => (
+                <StripePayment {...routeProps} {...props} firebase={firebase} />
+              )}
+            />
+
             {/* dummy route for seein waiver */}
             <Route
               path="/waiver"
@@ -100,7 +108,6 @@ function App() {
             {/* this must be on the bottom */}
             <ProtectedRoute path="/admin" component={Dashboard} {...props} />
           </Switch>
-
         </Router>
       </AuthProvider>
     </ErrorBoundary>
