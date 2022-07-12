@@ -25,7 +25,7 @@ export default function StripePayment() {
       .then((data) => setClientSecret(data.clientSecret))
       .catch((err) => console.log(err))
   }, [])
-
+  console.log(clientSecret)
   const appearance = {
     theme: 'stripe',
   }
@@ -38,7 +38,7 @@ export default function StripePayment() {
     <>
       {clientSecret && (
         <Elements stripe={stripePromise} options={options}>
-          <PaymentDetails />
+          <PaymentDetails clientSecret={clientSecret} />
         </Elements>
       )}
     </>

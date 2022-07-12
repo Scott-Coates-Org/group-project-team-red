@@ -22,7 +22,7 @@ import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 //NOTE: some of this imports and set ups should be done in layout component but when I did it there the Card input field wasn't rendering in this modal
 
 //components showing payment details
-export default function PaymentDetails() {
+export default function PaymentDetails({ clientSecret }) {
   //dummy state to make buttons back and continue funtional
   const [step3, setStep3] = useState(false)
   const [step4, setStep4] = useState(true)
@@ -48,15 +48,13 @@ export default function PaymentDetails() {
       return
     }
 
-    const clientSecret = new URLSearchParams(window.location.search).get(
-      'payment_intent_client_secret'
-    )
-
     if (!clientSecret) {
       return
     }
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+      console.log(paymentIntent)
+      paymentIntent.payment_method = 'card'
       switch (paymentIntent.status) {
         case 'succeeded':
           setMessage('Payment succeeded!')
@@ -86,12 +84,18 @@ export default function PaymentDetails() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: ' https://localhost:3000/thankyou',
+        return_url: 'https://localhost:3000/thankyou',
+        receipt_email: 'jojawhi@gmail.com',
       },
+
+      // Uncomment below if you only want redirect for redirect-based payments
+      // redirect: 'if_required',
     })
 
+    // ID of the payment method used in this PaymentIntent.
     if (error.type === 'card_error' || error.type === 'validation_error') {
       setMessage(error.message)
+      console.log(error.message)
     } else {
       setMessage('An unexpected error occurred.')
     }
@@ -121,6 +125,7 @@ export default function PaymentDetails() {
               <h3>Select payment details</h3>
             </StyledFlexColumn>
           </div>
+          {message && <div id="payment-message">{message}</div>}
           <Form className="my-2" onSubmit={() => handleSubmit()}>
             <StyledFlexColumn>
               <PaymentElement onChange={handleCardDetailsChange} />
@@ -138,6 +143,7 @@ export default function PaymentDetails() {
                   </span>
                 )}
               </StyledButton>
+              {message && <div id="payment-message">{message}</div>}
             </StyledFlexColumn>
           </Form>
 
@@ -155,7 +161,6 @@ export default function PaymentDetails() {
               Back
             </StyledButton>
           </StyledFlexRow>
-          {message && <div id="payment-message">{message}</div>}
         </StyledModal>
       )}
       {step3 && <CustomerDetails />}
