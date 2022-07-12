@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react'
 
 //calendar
@@ -15,15 +16,27 @@ import { StyledBox } from '../styled/Box.styles'
 
 //components
 import ProductList from '../modal-components/ProductList'
-
-//array of available time slots for the date
-const time = ['08:00', '09:00', '10:00', '14:00', '15:00']
+import { useDispatch, useSelector } from 'react-redux'
+import { getSelectedDateData } from 'redux/calendar'
+import { dateStrToDateObj } from 'utils/miscelaneous'
 
 //calendar component
-export default function CalendarComponent({ homeHideModalState }) {
-  const [date, setDate] = useState(new Date())
-
+export default function CalendarComponent({ hideCalendar }) {
   const [showProductModal, setShowProductModal] = useState(false)
+
+  const dispatch = useDispatch()
+
+  const getFormattedDate = (date) => {
+    let year = date.getFullYear()
+    let month = (1 + date.getMonth()).toString().padStart(2, '0')
+    let day = date.getDate().toString().padStart(2, '0')
+    return month + '-' + day + '-' + year
+  }
+
+  const getSelectedBookingDateData = (date) => {
+    dispatch(getSelectedDateData(getFormattedDate(date)))
+    setShowProductModal(true)
+  }
 
   return (
     <StyledContainer>
@@ -34,7 +47,8 @@ export default function CalendarComponent({ homeHideModalState }) {
           }}
         >
           <div>
-            <FaArrowLeft onClick={() => homeHideModalState(true)} />
+            {/* TODO: Functionality works, need to implement the clickable hover effect */}
+            <FaArrowLeft onClick={() => hideCalendar(true)} />
             <span>Step 1 of 4</span>
           </div>
 
@@ -42,11 +56,8 @@ export default function CalendarComponent({ homeHideModalState }) {
         </StyledFlexColumn>
 
         <div className="calendar-container">
-          <Calendar
-            onChange={setDate}
-            value={date}
-            onClickDay={() => setShowProductModal(true)}
-          />
+          {/*TODO: The maxDate prop can help to only allow users select days loaded on db */}
+          <Calendar onClickDay={(date) => getSelectedBookingDateData(date)} />
         </div>
         {showProductModal && (
           <ProductList step1NextPageState={setShowProductModal} />
@@ -63,9 +74,13 @@ export function Time({ showTime, date }) {
 }
 
 //Times component shows available time slots
-export function Times({ date }) {
+export function Times({ room }) {
   const [eventTime, setEventTime] = useState(null)
   const [show, setShow] = useState(false)
+
+  const date = useSelector(({ calendar }) => calendar.data)
+
+  const time = date[room].timeSlots
 
   const handleClick = (e) => {
     if (date) {
@@ -73,7 +88,7 @@ export function Times({ date }) {
       time && setShow(true)
     }
   }
-  console.log(eventTime)
+
   return (
     <StyledFlexColumn className="times">
       <StyledFlexRow>
@@ -84,10 +99,10 @@ export function Times({ date }) {
             </StyledBox>
           )
         })}
-      </StyledFlexRow>{' '}
+      </StyledFlexRow>
       {show ? (
         <StyledFlexRow>
-          Your appointment is set to {eventTime} on {date.toDateString()}
+          Your appointment is set to {eventTime} on {dateStrToDateObj(date.id)}
         </StyledFlexRow>
       ) : null}
     </StyledFlexColumn>

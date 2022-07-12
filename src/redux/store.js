@@ -5,12 +5,16 @@ import { reducer as user } from './user'
 import { reducer as product } from './product'
 import { reducer as room } from './room'
 import { reducer as addOn } from './addOn'
+import { reducer as calendar } from './calendar'
+import { reducer as cart } from './cart'
 
 const reducer = combineReducers({
   user,
   product,
   room,
   addOn,
+  calendar,
+  cart,
 })
 
 const store = configureStore({

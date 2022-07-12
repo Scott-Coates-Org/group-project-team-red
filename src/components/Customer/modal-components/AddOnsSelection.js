@@ -12,7 +12,6 @@ import Socks from '../assets/socks.jpg'
 
 //components
 import ItemList from './ItemList'
-import Recipe from '../modals/Recipe'
 
 //components showing add-ons options
 export default function AddOnsSelection({ step2NextPageState }) {
@@ -76,8 +75,6 @@ export default function AddOnsSelection({ step2NextPageState }) {
           </StyledFlexRow>
         </StyledModal>
       )}
-
-      <Recipe />
     </StyledFlexRow>
   )
 }

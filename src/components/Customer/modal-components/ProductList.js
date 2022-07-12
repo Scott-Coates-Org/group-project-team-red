@@ -12,12 +12,21 @@ import { FaArrowLeft } from 'react-icons/fa'
 //components
 import Product from './Product'
 import AddOnsSelection from './AddOnsSelection'
+import { useSelector } from 'react-redux'
+import { StyledFlexRow } from '../styled/FlexRow.styles'
 
 //modal for selection of jump pass
 export default function ProductList({ step1NextPageState }) {
   const [nextStep, setNextStep] = useState(false)
 
-  const product = 'something'
+  // TODO: Replace dummy text
+
+  const cart = useSelector(({ cart }) => cart.data)
+
+  const goBack = () => {
+    step1NextPageState(false)
+  }
+
   return (
     <StyledModal id="step2" width="35%" height="100%">
       <StyledFlexColumn
@@ -33,7 +42,8 @@ export default function ProductList({ step1NextPageState }) {
             <StyledRange bg="#35bd21" width="20%" />
           </StyledRange>
           <div>
-            <FaArrowLeft onClick={() => step1NextPageState(false)} />
+            {/* TODO: Functionality works, need to implement the clickable hover effect */}
+            <FaArrowLeft onClick={goBack} />
             <span>Step 2 of 4</span>
           </div>
 
@@ -49,15 +59,28 @@ export default function ProductList({ step1NextPageState }) {
         <StyledFlexColumn>
           <h4>Jump pass options</h4>
           <Product />
-          <StyledButton
-            width="100%"
-            onClick={() => {
-              setNextStep(true)
-            }}
-            disabled={product ? false : true}
-          >
-            Continue
-          </StyledButton>
+          <StyledFlexRow justify="space-between">
+            <StyledButton
+              onClick={goBack}
+              bg="#d9d9d9"
+              color="#000"
+              width="130px"
+            >
+              Back
+            </StyledButton>
+            {!!cart.length && (
+              <StyledButton
+                width="230px"
+                color="#fff"
+                onClick={() => {
+                  setNextStep(true)
+                }}
+              >
+                Continue
+              </StyledButton>
+            )}
+          </StyledFlexRow>
+
           {nextStep && <AddOnsSelection step2NextPageState={setNextStep} />}
         </StyledFlexColumn>
       </StyledFlexColumn>

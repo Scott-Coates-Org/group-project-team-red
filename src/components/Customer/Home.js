@@ -34,7 +34,7 @@ export default function Home() {
 
       {!hideModal && (
         <StyledContainer>
-          <CalendarComponent homeHideModalState={setHideModal} />
+          <CalendarComponent hideCalendar={setHideModal} />
         </StyledContainer>
       )}
     </StyledContainer>
