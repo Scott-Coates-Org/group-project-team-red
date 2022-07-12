@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react'
 import ReactSignatureCanvas from 'react-signature-canvas'
+
+//styles
 import { StyledButton } from '../styled/Button.styles'
 import { StyledFlexColumn } from '../styled/FlexColumn.styles'
 import { StyledFlexRow } from '../styled/FlexRow.styles'

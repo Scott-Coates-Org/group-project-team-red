@@ -1,7 +1,9 @@
 import React from 'react'
+import Confetti from 'react-confetti'
+
+//styles
 import { StyledContainer } from '../styled/Container.styles'
 import { StyledFlexColumn } from '../styled/FlexColumn.styles'
-import Confetti from 'react-confetti'
 
 export default function ThankYou() {
   return (
