@@ -5,7 +5,7 @@ import { StyledFlexColumn } from '../styled/FlexColumn.styles'
 import { StyledFlexRow } from '../styled/FlexRow.styles'
 
 export default function CustomerWaiver() {
-  const [error, setError} = useState(false)
+  const [error, setError] = useState(false)
   const [imageURL, setImageURL] = useState(null)
   const signature = useRef()
   const handleSignature = () => {
@@ -18,9 +18,9 @@ export default function CustomerWaiver() {
   const handleAccept = (e) => {
     e.preventDefault()
     //generate document or a file to be saved in database
-if (signature.isEmpty()) {
-  setError(true)
-}
+    if (signature.isEmpty()) {
+      setError(true)
+    }
     //clear the signature area
     signature.current.clear()
   }
@@ -112,7 +112,11 @@ if (signature.isEmpty()) {
             </StyledFlexRow>
           </label>
         </StyledFlexColumn>
-        <StyledButton width="100%" type="submit" disabled={error ? true : false}>
+        <StyledButton
+          width="100%"
+          type="submit"
+          disabled={error ? true : false}
+        >
           Accept and continue
         </StyledButton>
       </StyledFlexColumn>
