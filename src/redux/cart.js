@@ -187,3 +187,30 @@ export const deleteItem = createAsyncThunk(
     }
   }
 )
+
+export const setSessionTime = createAsyncThunk(
+  'cart/setTime',
+  async (selectedTimeObj, thunkAPI) => {
+    try {
+      const cartState = thunkAPI.getState().cart.data
+      thunkAPI.dispatch(updateData())
+      const cartToUpdate = cartState.find(
+        (p) => p.name === selectedTimeObj.selectedProduct
+      )
+
+      const updatedCart = {
+        ...cartToUpdate,
+        startingTime: selectedTimeObj.startingTime,
+      }
+
+      const newCartsState = cartState.map((p) =>
+        p.name !== updatedCart.name ? p : updatedCart
+      )
+
+      thunkAPI.dispatch(updateDataSuccess(newCartsState))
+    } catch (error) {
+      console.error('error', error)
+      thunkAPI.dispatch(updateDataFailure(error))
+    }
+  }
+)

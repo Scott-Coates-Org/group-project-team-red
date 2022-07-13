@@ -20,6 +20,7 @@ export default function ProductList({ step1NextPageState }) {
   const [nextStep, setNextStep] = useState(false)
 
   // TODO: Replace dummy text
+  // TODO: Bug on continue button, if customer selects product and time, move to step 3 and selects an add-on, then move back and removes the product the button is still rendered when it shouldn't
 
   const cart = useSelector(({ cart }) => cart.data)
 
@@ -68,7 +69,7 @@ export default function ProductList({ step1NextPageState }) {
             >
               Back
             </StyledButton>
-            {!!cart.length && (
+            {cart.length && cart[0].startingTime && (
               <StyledButton
                 width="230px"
                 color="#fff"
