@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 const express = require('express')
 const cors = require('cors')
 const app = express()
@@ -23,11 +24,16 @@ var corsOptions = {
 }
 
 app.get('/create-payment-intent', cors(corsOptions), function (req, res, next) {
+  console.log('11111')
+
   res.json({ msg: 'This is CORS-enabled for all origins!' })
 })
 
 app.post('/create-payment-intent', async (req, res) => {
+  console.log('222222')
   const { items } = req.body
+
+  console.log('items', items)
 
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({

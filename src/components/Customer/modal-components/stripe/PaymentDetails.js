@@ -40,6 +40,7 @@ export default function PaymentDetails({ clientSecret }) {
 
   //function for catching errors in card inputs
   const handleCardDetailsChange = (ev) => {
+    console.log('ev', ev)
     ev.error ? setCheckoutError(ev.error.message) : setCheckoutError()
   }
 
@@ -53,7 +54,7 @@ export default function PaymentDetails({ clientSecret }) {
     }
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      console.log(paymentIntent)
+      console.log('paymentIntent', paymentIntent)
       paymentIntent.payment_method = 'card'
       switch (paymentIntent.status) {
         case 'succeeded':
@@ -126,7 +127,7 @@ export default function PaymentDetails({ clientSecret }) {
             </StyledFlexColumn>
           </div>
           {message && <div id="payment-message">{message}</div>}
-          <Form className="my-2" onSubmit={() => handleSubmit()}>
+          <Form className="my-2" onSubmit={handleSubmit}>
             <StyledFlexColumn>
               <PaymentElement onChange={handleCardDetailsChange} />
               <div>{checkoutError && <div>{checkoutError}</div>}</div>
