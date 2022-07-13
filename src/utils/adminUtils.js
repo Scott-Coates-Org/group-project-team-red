@@ -13,17 +13,17 @@ import moment from 'moment'
 //   },
 // ]
 
-const createTimeSlots = (fromTime, toTime) => {
+const createTimeSlots = (fromTime, toTime, roomMaxCapacity) => {
   let startTime = moment(fromTime, 'HH:mm')
   let endTime = moment(toTime, 'HH:mm')
 
-  let arr = []
+  let timeObj = {}
   while (startTime <= endTime) {
-    arr.push(new moment(startTime).format('HH:mm'))
+    timeObj[new moment(startTime).format('HH:mm')] = roomMaxCapacity
 
     startTime.add(30, 'minutes')
   }
-  return arr
+  return timeObj
 }
 
 const createDays = (fromDay, toDay) => {
@@ -50,16 +50,15 @@ export const createDateObjs = (fromDay, toDay, arrayOfRoomObjs) => {
     arrayOfRoomObjs.forEach((room) => {
       dayObj[room.name] = {
         ...room,
-        timeSlots: createTimeSlots('10:00', '19:00'),
+        timeSlots: createTimeSlots('10:00', '19:00', room.maxCapacity),
       }
     })
-
     dayObjsArray.push(dayObj)
   })
   return dayObjsArray
 }
 
-// const dateObjects = createDateObjs('07-09-2022', '07-19-2022', rooms)
+// export const dateObjects = createDateObjs('07-09-2022', '07-19-2022', rooms)
 
 // export const _createDateObjects = async (dateObjsToPost) => {
 //   for (let dateObj of dateObjsToPost) {
