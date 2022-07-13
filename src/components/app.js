@@ -59,6 +59,7 @@ function App() {
     <ErrorBoundary>
       <AuthProvider onLogin={storeUserData}>
         <Router history={history}>
+
           <Switch>
             <Route
               path="/login"
@@ -112,6 +113,7 @@ function App() {
             {/* this must be on the bottom */}
             <ProtectedRoute path="/admin" component={Dashboard} {...props} />
           </Switch>
+
         </Router>
       </AuthProvider>
     </ErrorBoundary>
