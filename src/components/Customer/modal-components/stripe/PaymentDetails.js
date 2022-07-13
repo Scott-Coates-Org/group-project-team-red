@@ -22,7 +22,7 @@ import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 //NOTE: some of this imports and set ups should be done in layout component but when I did it there the Card input field wasn't rendering in this modal
 
 //components showing payment details
-export default function PaymentDetails({ clientSecret }) {
+export default function PaymentDetails() {
   //dummy state to make buttons back and continue funtional
   const [step3, setStep3] = useState(false)
   const [step4, setStep4] = useState(true)
@@ -40,7 +40,6 @@ export default function PaymentDetails({ clientSecret }) {
 
   //function for catching errors in card inputs
   const handleCardDetailsChange = (ev) => {
-    console.log('ev', ev)
     ev.error ? setCheckoutError(ev.error.message) : setCheckoutError()
   }
 
@@ -48,6 +47,12 @@ export default function PaymentDetails({ clientSecret }) {
     if (!stripe) {
       return
     }
+
+    const clientSecret = new URLSearchParams(window.location.search).get(
+      'payment_intent_client_secret'
+    )
+
+    console.log('checkoutClientSecret', clientSecret)
 
     if (!clientSecret) {
       return

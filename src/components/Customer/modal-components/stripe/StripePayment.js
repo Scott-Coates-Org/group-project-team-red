@@ -7,9 +7,7 @@ import { Elements } from '@stripe/react-stripe-js'
 //components
 import PaymentDetails from './PaymentDetails'
 
-const stripePromise = loadStripe(
-  'pk_test_51IszQADm1KpFnZprJ0aeZfHzmokzHu9WjQYqClLzgO8w9uIc8SU5AeyKED7Qx1hgnYFIL1yOmK4MhykBlmQ3iD0t00jVrr0SJb'
-)
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY)
 
 export default function StripePayment() {
   const [clientSecret, setClientSecret] = useState('')
@@ -25,7 +23,7 @@ export default function StripePayment() {
       .then((data) => setClientSecret(data.clientSecret))
       .catch((err) => console.log(err))
   }, [])
-  console.log(clientSecret)
+  console.log('clientSecret', clientSecret)
   const appearance = {
     theme: 'stripe',
   }
@@ -34,11 +32,13 @@ export default function StripePayment() {
     appearance,
   }
 
+  console.log('stripePromise', stripePromise)
+
   return (
     <>
       {clientSecret && (
         <Elements stripe={stripePromise} options={options}>
-          <PaymentDetails clientSecret={clientSecret} />
+          <PaymentDetails />
         </Elements>
       )}
     </>

@@ -2,10 +2,10 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
+// require('dotenv').config() // Uncomment this for localhost
+
 // This is your test secret API key.
-const stripe = require('stripe')(
-  'sk_test_51IszQADm1KpFnZprVX3mbLqHdWoMqttDIfpLqG289cCy5WTGg6TrO1355xQr81g50kzOVd41PG6JzL6B2OtB80Kv00A5iUAgLM'
-)
+const stripe = require('stripe')(process.env.REACT_APP_STRIPE_SECRET_KEY) // Uncomment dotenv above to make it work on localhost and place the variable on .env file, .env.local doesn't work
 
 app.use(express.static('public'))
 app.use(express.json())
@@ -24,25 +24,20 @@ var corsOptions = {
 }
 
 app.get('/create-payment-intent', cors(corsOptions), function (req, res, next) {
-  console.log('11111')
-
   res.json({ msg: 'This is CORS-enabled for all origins!' })
 })
 
 app.post('/create-payment-intent', async (req, res) => {
-  console.log('222222')
   const { items } = req.body
-
-  console.log('items', items)
 
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
     amount: calculateOrderAmount(items),
     currency: 'usd',
-    // automatic_payment_methods: {
-    //   enabled: true,
-    // }
-    payment_method_types: ['card'],
+    automatic_payment_methods: {
+      enabled: true,
+    },
+    // payment_method_types: ['card'],
   })
 
   res.send({
