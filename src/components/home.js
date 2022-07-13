@@ -1,7 +1,8 @@
 // import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+
+//redux
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 import { createWidget, fetchAllWidgets, savePhoto } from 'redux/widget'
 
 //components
@@ -10,6 +11,7 @@ import Header from './Customer/Header'
 
 //style
 import { StyledContainer } from './Customer/styled/Container.styles'
+import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 
 export default function Home(props) {
   const dispatch = useDispatch()

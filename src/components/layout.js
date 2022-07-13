@@ -1,5 +1,8 @@
+import React, { useState } from 'react'
 import Avatar from 'react-avatar'
-import { useState } from 'react'
+import { Helmet } from 'react-helmet'
+
+//style
 import {
   Collapse,
   Navbar,
@@ -11,14 +14,9 @@ import {
   DropdownMenu,
   DropdownItem,
 } from 'reactstrap'
-import React from 'react'
-import { Helmet } from 'react-helmet'
-import { useAuth } from './user/auth'
-//stripe
-import { loadStripe } from '@stripe/stripe-js'
-import { Elements } from '@stripe/react-stripe-js'
 
-const stripePromise = loadStripe(process.env.PUBLISHABLE_KEY)
+//firebase
+import { useAuth } from './user/auth'
 
 export default function Layout(props) {
   const { user } = useAuth()
@@ -48,7 +46,6 @@ export default function Layout(props) {
       <header>
         <LayoutNav user={user} {...props} />
       </header>
-      <Elements stripe={stripePromise}>{props.children}</Elements>
     </>
   )
 }
