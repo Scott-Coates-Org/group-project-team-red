@@ -6,7 +6,7 @@ const admin = require('firebase-admin')
 const express = require('express')
 const cors = require('cors')
 const app = express()
-// require('dotenv').config() // Uncomment this for localhost
+require('dotenv').config() // Uncomment this for localhost
 admin.initializeApp()
 
 // This is your test secret API key.
@@ -55,3 +55,80 @@ app.post('/create-payment-intent', async (req, res) => {
 app.listen(4242, () => console.log('Node server listening on port 4242!'))
 
 exports.stripe = functions.https.onRequest(app)
+
+// const functions = require('firebase-functions')
+// const admin = require('firebase-admin')
+
+// admin.initializeApp()
+
+// exports.createPaymentIntent = functions.https.onCall(async (data, context) => {
+//   const paymentIntent = await stripe.paymentIntents.create({
+//     // amount: calculateOrderAmount(items),
+//     amount: 1400,
+//     currency: 'usd',
+//     automatic_payment_methods: {
+//       enabled: true,
+//     },
+//   })
+
+//   return {
+//     clientSecret: paymentIntent.client_secret,
+//   }
+// })
+
+// exports.createStripeCheckout = functions.https.onCall(async (data, context) => {
+//   const stripe = require('stripe')(functions.config().stripe.secret_key)
+//   const session = await stripe.checkout.sessions.create({
+//     payment_method_types: ['card'],
+//     mode: 'payment',
+//     success_url: 'http://localhost:5000/thankyou',
+//     cancel_url: 'http://localhost:5000/home', // TODO: Make a proper cancel url
+//     // success_url: 'https://team-red-1ccfb.web.app/thankyou',
+//     // cancel_url: 'https://team-red-1ccfb.web.app/home', // TODO: Make a proper cancel url
+//     shipping_address_collection: {
+//       allowed_countries: ['US'],
+//     },
+//     line_items: [
+//       {
+//         quantity: 1,
+//         price_data: {
+//           currency: 'usd',
+//           unit_amount: 100 * 100, // 10000 = 100USD
+//           product_data: {
+//             name: 'Power Pass',
+//           },
+//         },
+//       },
+//     ],
+//   })
+//   console.log('session', session)
+//   return session
+// })
+
+// exports.stripeWebhook = functions.https.onRequest(async (req, res) => {
+//   const stripe = require('stripe')(functions.config().stripe.secret_key)
+//   let event
+
+//   try {
+//     const whSec = functions.config().stripe.payments_webhook_secret
+
+//     event = stripe.webhooks.constructEvent(
+//       req.rawBody,
+//       req.headers['stripe-signature'],
+//       whSec
+//     )
+//   } catch (err) {
+//     console.error('Webhook signature verification failed')
+//     res.sendStatus(400)
+//   }
+
+//   const dataObject = event.data.object
+
+//   await admin.firestore().collection('orders').doc().set({
+//     // TODO: Check setup for production db
+//     checkoutSessionId: dataObject.id,
+//     paymentStatus: dataObject.payment_status,
+//     shippingInfo: dataObject.shipping,
+//     amountTotal: dataObject.amount_total,
+//   })
+// })
