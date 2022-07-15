@@ -10,15 +10,14 @@ const app = express()
 admin.initializeApp()
 
 // This is your test secret API key.
-const stripe = require('stripe')(
-  'sk_test_51IszQADm1KpFnZprVX3mbLqHdWoMqttDIfpLqG289cCy5WTGg6TrO1355xQr81g50kzOVd41PG6JzL6B2OtB80Kv00A5iUAgLM'
-) // Uncomment dotenv above to make it work on localhost and place the variable on .env file, .env.local doesn't work
+const stripe = require('stripe')(process.env.REACT_APP_STRIPE_SECRET_KEY) // Uncomment dotenv above to make it work on localhost and place the variable on .env file, .env.local doesn't work
 
 // Automatically allow cross-origin requests
 app.use(express.static('build'))
 app.use(express.json())
-app.use(cors())
-// const YOUR_DOMAIN = 'http://localhost:4242'
+// app.use(cors())
+// Automatically allow cross-origin requests
+app.use(cors({ origin: true }))
 
 const calculateOrderAmount = (items) => {
   // Replace this constant with a calculation of the order's amount
@@ -26,12 +25,12 @@ const calculateOrderAmount = (items) => {
   // people from directly manipulating the amount on the client
   return 1400
 }
-var corsOptions = {
-  origin: 'http://localhost:4242',
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
+// var corsOptions = {
+//   'Access-Control-Allow-Origin': 'https://team-red-1ccfb.web.app',
+//   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
 
-app.get('/create-payment-intent', cors(corsOptions), function (req, res, next) {
+app.get('/create-payment-intent', function (req, res, next) {
   res.json({ msg: "I'm a teapot!" })
 })
 
@@ -48,7 +47,7 @@ app.post('/create-payment-intent', async (req, res) => {
     // payment_method_types: ['card'],
   })
 
-  res.send({
+  res.status(200).send({
     clientSecret: paymentIntent.client_secret,
   })
 })
