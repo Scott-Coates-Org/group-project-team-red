@@ -7,7 +7,9 @@ import { Elements } from '@stripe/react-stripe-js'
 //components
 import PaymentDetails from './PaymentDetails'
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY)
+const stripePromise = loadStripe(
+  'pk_test_51IszQADm1KpFnZprJ0aeZfHzmokzHu9WjQYqClLzgO8w9uIc8SU5AeyKED7Qx1hgnYFIL1yOmK4MhykBlmQ3iD0t00jVrr0SJb'
+)
 
 export default function StripePayment() {
   const [clientSecret, setClientSecret] = useState('')
