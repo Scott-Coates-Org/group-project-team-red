@@ -1,6 +1,7 @@
 {
   "projects": {
-    "team-red": "team-red-1ccfb"
+    "team-red": "team-red-1ccfb",
+    "default": "team-red-1ccfb"
   },
   "targets": {}
 }
