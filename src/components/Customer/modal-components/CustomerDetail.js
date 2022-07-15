@@ -13,7 +13,8 @@ import { FaArrowLeft } from 'react-icons/fa'
 import Recipe from '../modals/Recipe'
 import { Form } from 'reactstrap'
 import { StyledInfoBlue } from '../styled/InfoBlue.styles'
-import PaymentDetails from './stripe/PaymentDetails'
+
+import StripePayment from './stripe/StripePayment'
 
 export default function CustomerDetails() {
   const [step3, setStep3] = useState(true)
@@ -248,7 +249,7 @@ export default function CustomerDetails() {
           </Form>
         </StyledModal>
       )}
-      {step4 && newUser && <PaymentDetails customer={newUser} />}
+      {step4 && newUser && <StripePayment />}
 
       <Recipe />
     </StyledFlexRow>

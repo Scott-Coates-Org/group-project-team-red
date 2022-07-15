@@ -1,4 +1,6 @@
 import React from 'react'
+
+//styles
 import { StyledContainer } from '../styled/Container.styles'
 import { StyledFlexColumn } from '../styled/FlexColumn.styles'
 import Confetti from 'react-confetti'

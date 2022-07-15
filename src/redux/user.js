@@ -12,7 +12,7 @@ const user = createSlice({
   initialState,
   reducers: {
     getData: (state) => {
-      console.log(state)
+      state
     },
 
     getDataSuccess: (state, action) => {

@@ -1,9 +1,14 @@
+import { useEffect, useState } from 'react'
+//firebase
 import { useAuth } from './auth'
+import { StyledFirebaseAuth } from 'react-firebaseui'
+
+//style
 import { Form, FormGroup, Row, Col, Button } from 'reactstrap'
+
+//assets
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons'
-import { useEffect, useState } from 'react'
-import { StyledFirebaseAuth } from 'react-firebaseui'
 
 const componentLoginFroms = {
   login: LoginForm,
