@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+const functions = require('firebase-functions')
+
 /* eslint-disable no-debugger */
 const express = require('express')
 const cors = require('cors')
@@ -46,3 +49,5 @@ app.post('/create-payment-intent', async (req, res) => {
 })
 
 app.listen(4242, () => console.log('Node server listening on port 4242!'))
+
+exports.app = functions.https.onRequest(app)
