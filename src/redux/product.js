@@ -59,7 +59,13 @@ export const createProduct = createAsyncThunk(
   'product/createProduct',
   async (payload, thunkAPI) => {
     try {
-      await _createProduct(payload.title, payload.room,  payload.duration, payload.price, payload.photo)
+      await _createProduct(
+        payload.title,
+        payload.room,
+        payload.duration,
+        payload.price,
+        payload.photo
+      )
     } catch (error) {
       console.error('error', error)
       // Set any erros while trying to fetch

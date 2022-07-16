@@ -14,7 +14,7 @@ export default function ProductListItem(props) {
       }}
     >
       <img className="m-4" src={props.photo} style={{ width: '100px' }} />
-      <h4 className="m-4">{props.title}</h4>
+      <h4 className="m-4">{props.name}</h4>
       <div className="m-4">Room: {props.room}</div>
       <div className="m-4">Duration: {props.duration}</div>
       <div className="m-4">${props.price}</div>

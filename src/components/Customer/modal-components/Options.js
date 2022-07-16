@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 //style
 import { StyledBox } from '../styled/Box.styles'
@@ -11,7 +11,9 @@ import Socks from '../assets/socks.jpg'
 
 //components
 import { Times } from '../modals/Calendar'
-import Recipe from '../modals/Recipe'
+import Receipt from '../modals/Receipt'
+import { useDispatch, useSelector } from 'react-redux'
+import { addItemToCart, removeItemFromCart } from 'redux/cart'
 const color = {
   c1: '#fff',
   c2: '#35bd21',
@@ -20,10 +22,48 @@ const color = {
 //different options for jump pass
 export default function Options() {
   const [showOptions, setShowOptions] = useState(true)
-  const [showRecipe, setShowRecipe] = useState(false)
   const [count, setCount] = useState(0)
-  const [product, setProduct] = useState('')
-  console.log(product)
+
+  const dispatch = useDispatch()
+
+  const cart = useSelector(({ cart }) => cart.data)
+
+  const myObj = cart.find((item) => item.name === 'Power Pass')
+
+  useEffect(() => {
+    if (myObj) setCount(myObj.quantity)
+    else setCount(0)
+  }, [myObj])
+
+  const countUp = () => {
+    if (count < 50) {
+      addProductToCart()
+    }
+  }
+
+  const countDown = () => {
+    if (count > 0) {
+      removeProductFromCart()
+    }
+  }
+
+  const addProductToCart = () => {
+    dispatch(
+      addItemToCart({
+        name: 'Power Pass',
+        room: 'bigRoom',
+        duration: '120 minutes',
+        price: 21,
+        quantity: 1,
+        requirements: 'Altitude Socks',
+      })
+    )
+  }
+
+  const removeProductFromCart = () => {
+    dispatch(removeItemFromCart({ name: 'Power Pass' }))
+  }
+
   return (
     <StyledFlexColumn>
       <StyledFlexRow justify="space-between">
@@ -55,7 +95,7 @@ export default function Options() {
       {showOptions && (
         <StyledFlexColumn>
           <h6>Session time</h6>
-          <Times />
+          {count > 0 && <Times room={'bigRoom'} />}
           <StyledFlexRow justify="space-between">
             <h6>Jumper 7 or Older</h6>
             <StyledFlexRow justify="space-between">
@@ -70,7 +110,7 @@ export default function Options() {
                   }}
                   bg={color.c1}
                   color={color.c3}
-                  onClick={() => setCount((prevCount) => prevCount - 1)}
+                  onClick={countDown}
                 >
                   <p
                     style={{
@@ -95,14 +135,7 @@ export default function Options() {
                   style={{ cursor: 'pointer', flexGrow: '1' }}
                   bg={color.c1}
                   color={color.c3}
-                  onClick={() => {
-                    setCount((prevCount) => prevCount + 1)
-                    setShowRecipe(true)
-
-                    setProduct(
-                      document.querySelector('.product-title').innerText
-                    )
-                  }}
+                  onClick={countUp}
                 >
                   <p
                     style={{ alignSelf: 'flex-end', margin: '0', padding: '0' }}
@@ -120,7 +153,7 @@ export default function Options() {
           </StyledFlexRow>
         </StyledFlexColumn>
       )}
-      {showRecipe && <Recipe />}
+      {count > 0 && <Receipt />}
     </StyledFlexColumn>
   )
 }

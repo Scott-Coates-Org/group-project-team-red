@@ -12,7 +12,7 @@ export default function ProductForm() {
     reset,
     formState: { errors },
   } = useForm()
-  const { ref: titleRef, ...titleRest } = register('title', { required: true })
+  const { ref: titleRef, ...titleRest } = register('name', { required: true })
   const { ref: roomRef, ...roomRest } = register('room', { required: true })
   const { ref: durationRef, ...durationRest } = register('duration', {
     required: true,
@@ -29,7 +29,7 @@ export default function ProductForm() {
         if (photoUrl) {
           dispatch(
             createProduct({
-              title: data.title,
+              name: data.name,
               room: data.room,
               duration: data.duration,
               price: data.price,
@@ -50,13 +50,13 @@ export default function ProductForm() {
       className="p-3 my-3 border border-primary"
     >
       <FormGroup>
-        <Label for="title">Product Title</Label>
+        <Label for="name">Product name</Label>
         <Input
-          id="title"
+          id="name"
           type="text"
           {...titleRest}
           innerRef={titleRef}
-          invalid={errors.title}
+          invalid={errors.name}
         />
       </FormGroup>
       <FormGroup>
