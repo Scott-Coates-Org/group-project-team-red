@@ -61,7 +61,7 @@ export default function CalendarComponent({ hideCalendar }) {
           <Calendar onClickDay={(date) => getSelectedBookingDateData(date)} />
         </div>
         {showProductModal && (
-          <ProductList step1NextPageState={setShowProductModal} />
+          <ProductList setShowProductModal={setShowProductModal} />
         )}
       </StyledFlexColumn>
     </StyledContainer>

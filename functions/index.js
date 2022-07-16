@@ -12,11 +12,8 @@ require('dotenv').config() // Uncomment this for localhost
 // This is your test secret API key.
 const stripe = require('stripe')(process.env.REACT_APP_STRIPE_SECRET_KEY) // Uncomment dotenv above to make it work on localhost and place the variable on .env file, .env.local doesn't work
 
-// Automatically allow cross-origin requests
 app.use(express.static('build'))
 app.use(express.json())
-// app.use(cors())
-// Automatically allow cross-origin requests
 app.use(cors({ origin: 'http://localhost:3000' }))
 
 const calculateOrderAmount = (items) => {
@@ -36,15 +33,12 @@ app.post('/create-payment-intent', async (req, res) => {
     automatic_payment_methods: {
       enabled: true,
     },
-    // payment_method_types: ['card'],
   })
 
   res.status(200).send({
     clientSecret: paymentIntent.client_secret,
   })
 })
-
-// app.listen(4242, () => console.log('Node server listening on port 4242!'))
 
 exports.stripe = functions.https.onRequest(app)
 

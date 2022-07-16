@@ -16,8 +16,8 @@ import { useSelector } from 'react-redux'
 import { StyledFlexRow } from '../styled/FlexRow.styles'
 
 //modal for selection of jump pass
-export default function ProductList({ step1NextPageState }) {
-  const [nextStep, setNextStep] = useState(false)
+export default function ProductList({ setShowProductModal }) {
+  const [showAddOns, setShowAddOns] = useState(false)
 
   // TODO: Replace dummy text
   // TODO: Bug on continue button, if customer selects product and time, move to step 3 and selects an add-on, then move back and removes the product the button is still rendered when it shouldn't
@@ -25,7 +25,7 @@ export default function ProductList({ step1NextPageState }) {
   const cart = useSelector(({ cart }) => cart.data)
 
   const goBack = () => {
-    step1NextPageState(false)
+    setShowProductModal(false)
   }
 
   return (
@@ -74,7 +74,7 @@ export default function ProductList({ step1NextPageState }) {
                 width="230px"
                 color="#fff"
                 onClick={() => {
-                  setNextStep(true)
+                  setShowAddOns(true)
                 }}
               >
                 Continue
@@ -82,7 +82,7 @@ export default function ProductList({ step1NextPageState }) {
             )}
           </StyledFlexRow>
 
-          {nextStep && <AddOnsSelection step2NextPageState={setNextStep} />}
+          {showAddOns && <AddOnsSelection setShowAddOns={setShowAddOns} />}
         </StyledFlexColumn>
       </StyledFlexColumn>
     </StyledModal>

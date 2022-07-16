@@ -112,7 +112,7 @@ export default function PaymentDetails() {
   return (
     <StyledFlexRow>
       {step4 && (
-        <StyledModal top={0} left="0" height="100%" width="35%">
+        <StyledModal top={0} left="0" height="100%" width="45%">
           <div>
             <hr />
             <StyledRange bg="#d9d9d9" width="35%">
