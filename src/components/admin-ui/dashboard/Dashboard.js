@@ -13,6 +13,7 @@ import ProductsPage from '../products/products-page/ProductsPage'
 import ReportsPage from '../reports/reports-page/ReportsPage'
 import SettingsPage from '../settings/settings-page/SettingsPage'
 import SidebarNav from '../sidebar-nav/SidebarNav'
+import BookingsCalendar from '../bookings/BookingsCalendar'
 import {
   DashboardContainer,
   BottomContainer,
@@ -20,6 +21,9 @@ import {
 } from './Dashboard.styles'
 import TopNav from '../top-nav/TopNav'
 import { Route } from 'react-router-dom'
+import { registerLicense } from '@syncfusion/ej2-base'
+
+registerLicense(process.env.REACT_APP_SYNCFUSION_LICENSE)
 
 export const adminRoutes = [
   {
@@ -33,6 +37,12 @@ export const adminRoutes = [
     label: 'bookings',
     icon: faCalendar,
     component: () => <BookingsPage />,
+  },
+  {
+    path: '/admin/bookings/calendar',
+    label: 'bookings',
+    icon: faCalendar,
+    component: () => <BookingsCalendar />,
   },
   {
     path: '/admin/products',

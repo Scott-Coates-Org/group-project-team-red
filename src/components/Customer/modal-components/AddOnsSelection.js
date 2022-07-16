@@ -13,18 +13,21 @@ import Socks from '../assets/socks.jpg'
 //components
 import ItemList from './ItemList'
 
+import CustomerDetails from './CustomerDetail'
+
 //components showing add-ons options
 export default function AddOnsSelection({ step2NextPageState }) {
-  const [step3, setStep3] = useState(true)
+  const [step2, setStep2] = useState(true)
+  const [step3, setStep3] = useState(false)
 
   const goBack = () => {
-    setStep3(false)
+    setStep2(false)
     step2NextPageState(false)
   }
 
   return (
     <StyledFlexRow>
-      {step3 && (
+      {step2 && (
         <StyledModal top={0} left="0" height="100%" width="35%">
           <div>
             <hr />
@@ -69,12 +72,22 @@ export default function AddOnsSelection({ step2NextPageState }) {
               Back
             </StyledButton>
 
-            <StyledButton width="230px" color="#fff">
+            <StyledButton
+              width="230px"
+              color="#fff"
+              onClick={() => {
+                setStep3(true)
+                setStep2(false)
+              }}
+            >
               Continue
             </StyledButton>
           </StyledFlexRow>
         </StyledModal>
       )}
+      {step3 && <CustomerDetails />}
+
+      {/* <Recipe /> */}
     </StyledFlexRow>
   )
 }

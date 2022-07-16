@@ -6,6 +6,7 @@ import { firebase } from '@firebase/app'
 import '@firebase/auth'
 import '@firebase/storage'
 import 'firebase/firestore'
+import '@firebase/functions'
 
 const firebaseKey = process.env.REACT_APP_FIREBASE_API_KEY
 const firebaseProjectId = process.env.REACT_APP_FIREBASE_PROJECT_ID
@@ -20,6 +21,7 @@ const options = {
 }
 
 const client = firebase.initializeApp(options)
-
+// Initialize Cloud Functions through Firebase
+export const functions = firebase.functions()
 export default client
 export { firebase }
