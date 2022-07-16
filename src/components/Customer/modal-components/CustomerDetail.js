@@ -10,11 +10,11 @@ import { Link } from 'react-router-dom'
 import { FaArrowLeft } from 'react-icons/fa'
 
 //components
-import Recipe from '../modals/Recipe'
 import { Form } from 'reactstrap'
 import { StyledInfoBlue } from '../styled/InfoBlue.styles'
 
 import StripePayment from './stripe/StripePayment'
+// import Receipt from '../modals/Receipt'
 
 export default function CustomerDetails() {
   const [step3, setStep3] = useState(true)
@@ -251,7 +251,7 @@ export default function CustomerDetails() {
       )}
       {step4 && newUser && <StripePayment />}
 
-      <Recipe />
+      {/* <Receipt /> */}
     </StyledFlexRow>
   )
 }

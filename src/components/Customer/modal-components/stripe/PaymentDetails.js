@@ -14,10 +14,10 @@ import { FaArrowLeft, FaLock } from 'react-icons/fa'
 
 //components
 import CustomerDetails from '../CustomerDetail'
-import Recipe from '../../modals/Recipe'
 
 //stripe
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
+// import Receipt from 'components/Customer/modals/Receipt'
 
 //NOTE: some of this imports and set ups should be done in layout component but when I did it there the Card input field wasn't rendering in this modal
 
@@ -171,7 +171,7 @@ export default function PaymentDetails() {
       )}
       {step3 && <CustomerDetails />}
 
-      <Recipe />
+      {/* <Receipt /> */}
     </StyledFlexRow>
   )
 }

@@ -87,7 +87,7 @@ export default function AddOnsSelection({ step2NextPageState }) {
       )}
       {step3 && <CustomerDetails />}
 
-      {/* <Recipe /> */}
+      {/* <Receipt /> */}
     </StyledFlexRow>
   )
 }

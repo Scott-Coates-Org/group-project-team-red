@@ -72,12 +72,6 @@ function App() {
                 <Logout {...routeProps} {...props} firebase={firebase} />
               )}
             />
-            <Route
-              path="/home"
-              render={(routeProps) => (
-                <Home {...routeProps} {...props} firebase={firebase} />
-              )}
-            />
 
             {/* //route for thank you page just to be able to see it */}
             <Route
@@ -107,7 +101,12 @@ function App() {
               )}
             />
 
-            {/* <Route exact path="/" render={() => <Header />} /> */}
+            <Route
+              path="/"
+              render={(routeProps) => (
+                <Home {...routeProps} {...props} firebase={firebase} />
+              )}
+            />
 
             {/* this must be on the bottom */}
             <ProtectedRoute path="/admin" component={Dashboard} {...props} />
