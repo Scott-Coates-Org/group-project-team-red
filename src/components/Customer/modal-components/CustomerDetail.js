@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 //style
 import { StyledModal } from '../styled/Modal.styles'
 import { StyledRange } from '../styled/Range.styles'
@@ -13,9 +13,13 @@ import { Form } from 'reactstrap'
 import { StyledInfoBlue } from '../styled/InfoBlue.styles'
 
 import CustomerWaiver from './CustomerWaiver'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCustomerData } from 'redux/customer'
+import StripePayment from './stripe/StripePayment'
 
 export default function CustomerDetails({ setShowCustomerDetailsForm }) {
-  const showCustomerWaiver = useRef(false)
+  // const showCustomerWaiver = useRef(false)
+  const [showCustomerWaiver, setShowCustomerWaiver] = useState(false)
 
   const [email, setEmail] = useState('')
   const [cellNumber, setCellNumber] = useState('')
@@ -23,22 +27,27 @@ export default function CustomerDetails({ setShowCustomerDetailsForm }) {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
 
-  const [newUser, setNewUser] = useState({
-    firstName: '',
-    lastName: '',
-    cellNumber: '',
-    zipCode: '',
-    email: '',
-  })
+  const customerData = useSelector(({ customer }) => customer.data)
+
+  const dispatch = useDispatch()
 
   //TODO: Don't show continue button until are fields and the boxes are filled up
   //TODO: Autofill doesn't work in the form
 
+  useEffect(() => {
+    if (customerData.firstName && !customerData.waiverSignature) {
+      setShowCustomerWaiver(true)
+    }
+  }, [customerData])
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (email && cellNumber && zipCode && firstName && lastName) {
-      setNewUser({ firstName, lastName, email, cellNumber, zipCode })
-      showCustomerWaiver.current = true
+      dispatch(
+        setCustomerData({ firstName, lastName, email, cellNumber, zipCode })
+      )
+      // setNewUser({ firstName, lastName, email, cellNumber, zipCode })
+      // showCustomerWaiverRef.current = true
     }
   }
 
@@ -47,8 +56,8 @@ export default function CustomerDetails({ setShowCustomerDetailsForm }) {
   //   setShowCustomerWaiver(true)
   // }
 
-  console.log('newUser', newUser)
-  console.log('customerWaiver', showCustomerWaiver)
+  console.log('customerData', customerData)
+  // console.log('customerWaiver', showCustomerWaiverRef)
 
   return (
     <StyledFlexRow>
@@ -234,8 +243,11 @@ export default function CustomerDetails({ setShowCustomerDetailsForm }) {
             </StyledFlexRow>
           </StyledFlexColumn>
         </Form>
-        {!!showCustomerWaiver.current && (
-          <CustomerWaiver setShowCustomerWaiver={showCustomerWaiver} />
+        {showCustomerWaiver && (
+          <CustomerWaiver setShowCustomerWaiver={setShowCustomerWaiver} />
+        )}
+        {customerData.waiverSignature && !showCustomerWaiver && (
+          <StripePayment />
         )}
       </StyledModal>
     </StyledFlexRow>

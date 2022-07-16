@@ -11,8 +11,10 @@ const stripePromise = loadStripe(
   'pk_test_51IszQADm1KpFnZprJ0aeZfHzmokzHu9WjQYqClLzgO8w9uIc8SU5AeyKED7Qx1hgnYFIL1yOmK4MhykBlmQ3iD0t00jVrr0SJb'
 )
 
-export default function StripePayment() {
+export default function StripePayment({ setShowPaymentPage }) {
   const [clientSecret, setClientSecret] = useState('')
+
+  // TODO: Make it possible to go back from payment page to customer details (or maybe is better to go back to add-ons?)
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
@@ -37,13 +39,11 @@ export default function StripePayment() {
     appearance,
   }
 
-  console.log('stripePromise', stripePromise)
-
   return (
     <>
       {clientSecret && (
         <Elements stripe={stripePromise} options={options}>
-          <PaymentDetails />
+          <PaymentDetails setShowPaymentPage={setShowPaymentPage} />
         </Elements>
       )}
     </>

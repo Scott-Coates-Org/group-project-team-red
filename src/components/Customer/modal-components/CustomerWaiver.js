@@ -1,6 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux'
 import ReactSignatureCanvas from 'react-signature-canvas'
+import { appendCustomerWaiver } from 'redux/customer'
 
 //styles
 import { StyledButton } from '../styled/Button.styles'
@@ -10,25 +12,36 @@ import { StyledModal } from '../styled/Modal.styles'
 import { StyledRange } from '../styled/Range.styles'
 
 export default function CustomerWaiver({ setShowCustomerWaiver }) {
-  const [imageURL, setImageURL] = useState(null)
+  const dispatch = useDispatch()
+
+  const signedWaiver = useSelector(
+    ({ customer }) => customer.data.waiverSignature
+  )
 
   const signature = useRef()
   const handleSignature = () => {
     //fuction with a timeout that will take the signature and save it
     setTimeout(() => {
-      setImageURL(signature.current.getTrimmedCanvas().toDataURL('image/png'))
+      dispatch(
+        appendCustomerWaiver(
+          signature.current.getTrimmedCanvas().toDataURL('image/png')
+        )
+      )
     }, 2000)
   }
-  console.log(imageURL)
+  // TODO: If customer comes back on the wizard from payment and waiver is already signed it shouldn't be displayed again
   const handleAccept = (e) => {
     e.preventDefault()
     //generate document or a file to be saved in database
     if (signature.current.isEmpty()) {
+      //TODO: Create notifications for the cart
+      console.error('Signature is empty')
       return
     }
-    //clear the signature area
-    signature.current.clear()
+
+    setShowCustomerWaiver(false)
   }
+
   return (
     <StyledFlexRow>
       <StyledModal
@@ -52,9 +65,7 @@ export default function CustomerWaiver({ setShowCustomerWaiver }) {
             </StyledRange>
             <div>
               {/* TODO: Functionality works, need to implement the clickable hover effect */}
-              <FaArrowLeft
-                onClick={() => (setShowCustomerWaiver.current = false)}
-              />
+              <FaArrowLeft onClick={() => setShowCustomerWaiver(false)} />
               <span>Step 2 of 4</span>
             </div>
           </StyledFlexColumn>
@@ -152,14 +163,14 @@ export default function CustomerWaiver({ setShowCustomerWaiver }) {
               </label>
             </StyledFlexColumn>
             <StyledButton
-              onClick={() => (setShowCustomerWaiver.current = false)}
+              onClick={() => setShowCustomerWaiver(false)}
               bg="#d9d9d9"
               color="#000"
               width="40%"
             >
               Back
             </StyledButton>
-            {imageURL && (
+            {signedWaiver && (
               <StyledButton width="40%" type="submit">
                 Accept and continue
               </StyledButton>
