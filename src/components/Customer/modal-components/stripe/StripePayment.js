@@ -17,11 +17,11 @@ export default function StripePayment() {
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     fetch(
-      'https://us-central1-team-red-1ccfb.cloudfunctions.net/stripe/create-payment-intent',
+      'http://localhost:5000/team-red-1ccfb/us-central1/stripe/create-payment-intent',
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] }),
+        body: JSON.stringify({ items: [{ id: 'xl-tshirt', quantity: 2 }] }),
       }
     )
       .then((res) => res.json())
