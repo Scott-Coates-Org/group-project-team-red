@@ -20,13 +20,10 @@ import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 
 //components showing payment details
 export default function PaymentDetails() {
-  //dummy state to make buttons back and continue funtional
+  //price should be taken from the recipe total
   const price = 82.29
 
-  //price should be taken from the recipe total
-
   //needed vars
-
   const stripe = useStripe()
   const elements = useElements()
   const [isLoading, setIsLoading] = useState(false)
@@ -47,14 +44,11 @@ export default function PaymentDetails() {
       'payment_intent_client_secret'
     )
 
-    console.log('checkoutClientSecret', clientSecret)
-
     if (!clientSecret) {
       return
     }
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      console.log('paymentIntent', paymentIntent)
       paymentIntent.payment_method = 'card'
       switch (paymentIntent.status) {
         case 'succeeded':
@@ -96,7 +90,6 @@ export default function PaymentDetails() {
     // ID of the payment method used in this PaymentIntent.
     if (error.type === 'card_error' || error.type === 'validation_error') {
       setMessage(error.message)
-      console.log(error.message)
     } else {
       setMessage('An unexpected error occurred.')
     }

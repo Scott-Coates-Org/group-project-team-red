@@ -8,6 +8,7 @@ import { reducer as addOn } from './addOn'
 import { reducer as calendar } from './calendar'
 import { reducer as cart } from './cart'
 import { reducer as customer } from './customer'
+import { reducer as bookingDetails } from './bookingDetails'
 
 const reducer = combineReducers({
   user,
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   calendar,
   cart,
   customer,
+  bookingDetails,
 })
 
 const store = configureStore({

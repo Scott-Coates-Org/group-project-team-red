@@ -1,16 +1,16 @@
+// https://dev.to/thatgalnatalie/how-to-get-started-with-redux-toolkit-41e
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import firebaseClient from 'firebase/client'
-import firebase from 'firebase/app'
 
 const initialState = {
-  data: {},
+  data: [],
   isLoaded: false,
   hasErrors: false,
   errorMsg: '',
 }
 
-const calendar = createSlice({
-  name: 'calendar',
+const booking = createSlice({
+  name: 'booking',
   initialState,
   reducers: {
     getData: (state) => {
@@ -90,7 +90,7 @@ const calendar = createSlice({
   },
 })
 
-export const reducer = calendar.reducer
+export const reducer = booking.reducer
 
 export const {
   getData,
@@ -108,41 +108,79 @@ export const {
   updateData,
   updateDataSuccess,
   updateDataFailure,
-} = calendar.actions
+} = booking.actions
 
-export const getSelectedDateData = createAsyncThunk(
-  'calendar/getSelectedDateData',
-  async (selectedDate, thunkAPI) => {
+export const fetchAllBookings = createAsyncThunk(
+  'booking/fetchAllBookings',
+  async (_, thunkAPI) => {
+    thunkAPI.dispatch(getData())
+
+    try {
+      const data = await _fetchAllBookingsFromDb()
+      thunkAPI.dispatch(getDataSuccess(data))
+    } catch (error) {
+      console.error('error', error)
+      // Set any erros while trying to fetch
+      thunkAPI.dispatch(getDataFailure(error))
+    }
+  }
+)
+
+export const getSingleBookingObj = createAsyncThunk(
+  'booking/getSingleBookingObj',
+  async (id, thunkAPI) => {
     thunkAPI.dispatch(getData())
     try {
-      const data = await _getSelectedDateData(selectedDate)
-      thunkAPI.dispatch(getDataSuccess(...data))
+      const data = await _fetchBookingById(id)
+      thunkAPI.dispatch(getDataSuccess(data))
+      return data
     } catch (error) {
       thunkAPI.dispatch(getDataFailure(error))
     }
   }
 )
 
-export const updateSelectedDateTimeslots = createAsyncThunk(
-  'calendar/updateSelectedDateTimeslots',
+export const createBooking = createAsyncThunk(
+  'booking/createBooking',
   async (bookingObj, thunkAPI) => {
-    thunkAPI.dispatch(updateData())
+    thunkAPI.dispatch(createData())
     try {
-      // TODO
+      await _createBooking(bookingObj)
+      thunkAPI.dispatch(createDataSuccess(bookingObj))
     } catch (error) {
-      thunkAPI.dispatch(getDataFailure(error))
+      console.error('error', error)
+      // Set any erros while trying to fetch
+      thunkAPI.dispatch(createDataFailure())
     }
   }
 )
 
-const _getSelectedDateData = async (selectedDate) => {
+async function _fetchAllBookingsFromDb() {
+  const snapshot = await firebaseClient.firestore().collection('bookings').get()
+
+  const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+
+  return data
+}
+
+async function _fetchBookingById(id) {
   const snapshot = await firebaseClient
     .firestore()
-    .collection('dates')
-    .where(firebase.firestore.FieldPath.documentId(), '==', selectedDate)
+    .collection('bookings')
+    .where('id', '==', id)
     .get()
 
   const data = snapshot.docs.map((doc) => doc.data())
 
   return data
+}
+
+async function _createBooking(bookingObj) {
+  const doc = await firebaseClient
+    .firestore()
+    .collection('bookings')
+    .doc(bookingObj.id)
+    .set(bookingObj)
+
+  return doc
 }

@@ -6,6 +6,8 @@ import { Elements } from '@stripe/react-stripe-js'
 
 //components
 import PaymentDetails from './PaymentDetails'
+import { useDispatch, useSelector } from 'react-redux'
+import { createBooking } from 'redux/bokingDetails'
 
 const stripePromise = loadStripe(
   'pk_test_51IszQADm1KpFnZprJ0aeZfHzmokzHu9WjQYqClLzgO8w9uIc8SU5AeyKED7Qx1hgnYFIL1yOmK4MhykBlmQ3iD0t00jVrr0SJb'
@@ -14,7 +16,27 @@ const stripePromise = loadStripe(
 export default function StripePayment({ setShowPaymentPage }) {
   const [clientSecret, setClientSecret] = useState('')
 
+  const dispatch = useDispatch()
+
   // TODO: Make it possible to go back from payment page to customer details (or maybe is better to go back to add-ons?)
+
+  const { data: calendarData } = useSelector(({ calendar }) => calendar)
+  const { data: cartData } = useSelector(({ cart }) => cart)
+  const { data: customerData } = useSelector(({ customer }) => customer)
+
+  // TODO: In V2 we need to arrange all the hardcoded values
+  const bookingDetails = {
+    orderDetails: {
+      date: calendarData.id,
+      startingTime: cartData[0].startingTime,
+      room: cartData[0].room,
+      productName: cartData.map((item) => item.name),
+      ticketsCount: cartData[0].quantity,
+      addOnsCount: cartData[1] ? cartData[1].quantity : null,
+    },
+    customerDetails: { customerData },
+    billingStatus: 'Pending',
+  }
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
@@ -23,14 +45,18 @@ export default function StripePayment({ setShowPaymentPage }) {
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: [{ id: 'xl-tshirt', quantity: 2 }] }),
+        body: JSON.stringify({ items: bookingDetails.orderDetails }),
       }
     )
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret))
+      .then((data) => {
+        bookingDetails.id = data.paymentIntent.id
+        bookingDetails.orderDetails.orderDate = data.paymentIntent.created
+        dispatch(createBooking(bookingDetails))
+        setClientSecret(data.paymentIntent.client_secret)
+      })
       .catch((err) => console.log(err))
   }, [])
-  console.log('clientSecret', clientSecret)
   const appearance = {
     theme: 'stripe',
   }
