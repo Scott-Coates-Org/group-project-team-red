@@ -5,7 +5,7 @@ import { StyledContainer } from '../styled/Container.styles'
 import { StyledFlexColumn } from '../styled/FlexColumn.styles'
 import Confetti from 'react-confetti'
 import { useDispatch } from 'react-redux'
-import { getSingleBookingObj } from 'redux/bokingDetails'
+import { getSingleBookingObj } from 'redux/bookingDetails'
 
 export default function ThankYou() {
   const [bookingData, setBookingData] = useState(null)
