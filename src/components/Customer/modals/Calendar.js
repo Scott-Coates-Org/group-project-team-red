@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react'
 
 //calendar
@@ -15,15 +16,28 @@ import { StyledBox } from '../styled/Box.styles'
 
 //components
 import ProductList from '../modal-components/ProductList'
-
-//array of available time slots for the date
-const time = ['08:00', '09:00', '10:00', '14:00', '15:00']
+import { useDispatch, useSelector } from 'react-redux'
+import { getSelectedDateData } from 'redux/calendar'
+import { dateStrToDateObj } from 'utils/miscelaneous'
+import { setSessionTime } from 'redux/cart'
 
 //calendar component
-export default function CalendarComponent() {
-  const [date, setDate] = useState(new Date())
-
+export default function CalendarComponent({ hideCalendar }) {
   const [showProductModal, setShowProductModal] = useState(false)
+
+  const dispatch = useDispatch()
+
+  const getFormattedDate = (date) => {
+    let year = date.getFullYear()
+    let month = (1 + date.getMonth()).toString().padStart(2, '0')
+    let day = date.getDate().toString().padStart(2, '0')
+    return month + '-' + day + '-' + year
+  }
+
+  const getSelectedBookingDateData = (date) => {
+    dispatch(getSelectedDateData(getFormattedDate(date)))
+    setShowProductModal(true)
+  }
 
   return (
     <StyledContainer>
@@ -34,20 +48,21 @@ export default function CalendarComponent() {
           }}
         >
           <div>
-            <FaArrowLeft /> <span>Step 1 of 4</span>
+            {/* TODO: Functionality works, need to implement the clickable hover effect */}
+            <FaArrowLeft onClick={() => hideCalendar(true)} />
+            <span>Step 1 of 4</span>
           </div>
 
           <h3>Choose the date</h3>
         </StyledFlexColumn>
 
         <div className="calendar-container">
-          <Calendar
-            onChange={setDate}
-            value={date}
-            onClickDay={() => setShowProductModal(true)}
-          />
+          {/*TODO: The maxDate prop can help to only allow users select days loaded on db */}
+          <Calendar onClickDay={(date) => getSelectedBookingDateData(date)} />
         </div>
-        {showProductModal && <ProductList />}
+        {showProductModal && (
+          <ProductList setShowProductModal={setShowProductModal} />
+        )}
       </StyledFlexColumn>
     </StyledContainer>
   )
@@ -60,31 +75,52 @@ export function Time({ showTime, date }) {
 }
 
 //Times component shows available time slots
-export function Times({ date }) {
+export function Times({ room }) {
   const [eventTime, setEventTime] = useState(null)
   const [show, setShow] = useState(false)
 
+  const dispatch = useDispatch()
+
+  const date = useSelector(({ calendar }) => calendar.data)
+  const timeSlots = Object.entries(date[room].timeSlots).sort()
+
+  const cart = useSelector(({ cart }) => cart.data)
+
+  // TODO: For V2 when it will be possible to buy more than one type of product at the same time we will have a bug because of cart.length and cart[0]
+
+  // TODO: Display the timeSlots on a grid, now they are a large single row
+
+  if (!cart.length) return null
+
   const handleClick = (e) => {
     if (date) {
+      dispatch(
+        setSessionTime({
+          selectedProduct: cart[0].name,
+          startingTime: e.target.innerText,
+        })
+      )
       setEventTime(e.target.innerText)
-      time && setShow(true)
+      timeSlots && setShow(true)
     }
   }
-  console.log(eventTime)
+
   return (
     <StyledFlexColumn className="times">
       <StyledFlexRow>
-        {time.map((times) => {
-          return (
-            <StyledBox key={times} onClick={(e) => handleClick(e)}>
-              {times}
-            </StyledBox>
-          )
+        {timeSlots.map((timeSlot) => {
+          if (timeSlot[1] - cart[0].quantity > 0)
+            return (
+              <StyledBox key={timeSlot[0]} onClick={(e) => handleClick(e)}>
+                {timeSlot[0]}
+              </StyledBox>
+            )
         })}
-      </StyledFlexRow>{' '}
-      {show ? (
+      </StyledFlexRow>
+      {cart[0].startingTime ? (
         <StyledFlexRow>
-          Your appointment is set to {eventTime} on {date.toDateString()}
+          Your appointment is set to {cart[0].startingTime} on
+          {dateStrToDateObj(date.id)}
         </StyledFlexRow>
       ) : null}
     </StyledFlexColumn>

@@ -1,8 +1,8 @@
 import { useState } from 'react'
 //components
 import Navbar from './Navbar'
+import CalendarComponent from './modals/Calendar'
 
-// import Modal from './Modal'
 //style
 import { StyledContainer } from './styled/Container.styles'
 import { StyledCTA } from './styled/CTA.styles'
@@ -10,19 +10,18 @@ import { StyledCTA } from './styled/CTA.styles'
 //assets
 import Logo from './assets/logo.png'
 import Background from './assets/background.png'
-import CalendarComponent from './modals/Calendar'
 
-const header = {
+const home = {
   src: Background,
   color: `#35bd21`,
 }
 
 //hero image component with dummy navbar
-export default function Header() {
+export default function Home() {
   const [hideModal, setHideModal] = useState(true)
 
   return (
-    <StyledContainer style={{ backgroundImage: `url(${header.src})` }}>
+    <StyledContainer style={{ backgroundImage: `url(${home.src})` }}>
       <Navbar />
       {hideModal && (
         <StyledContainer>
@@ -35,8 +34,7 @@ export default function Header() {
 
       {!hideModal && (
         <StyledContainer>
-          <CalendarComponent />
-          {/* <Modal /> */}
+          <CalendarComponent hideCalendar={setHideModal} />
         </StyledContainer>
       )}
     </StyledContainer>

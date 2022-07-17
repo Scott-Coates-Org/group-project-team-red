@@ -12,78 +12,79 @@ import Socks from '../assets/socks.jpg'
 
 //components
 import ItemList from './ItemList'
-import Recipe from '../modals/Recipe'
 
 import CustomerDetails from './CustomerDetail'
 
 //components showing add-ons options
-export default function AddOnsSelection() {
-  const [step2, setStep2] = useState(true)
-  const [step3, setStep3] = useState(false)
+export default function AddOnsSelection({ setShowAddOns }) {
+  const [showCustomerDetailsForm, setShowCustomerDetailsForm] = useState(false)
+
+  const goBack = () => {
+    setShowAddOns(false)
+  }
+
   return (
     <StyledFlexRow>
-      {step2 && (
-        <StyledModal top={0} left="0" height="100%" width="35%">
-          <div>
-            <hr />
-            <StyledRange bg="#d9d9d9" width="35%">
-              <StyledRange bg="#35bd21" width="20%" />
-            </StyledRange>
-
-            <StyledFlexColumn
-              style={{
-                marginTop: '4em',
-              }}
-            >
-              <div>
-                <FaArrowLeft /> <span>Step 3 of 4</span>
-              </div>
-
-              <h3>Select add-ons</h3>
-            </StyledFlexColumn>
-
-            <StyledFlexRow
-              style={{
-                marginTop: '0.5em',
-              }}
-            >
-              <img src={Socks} alt="socks" width="20%" />
-              <h5 style={{ alignSelf: 'center', padding: '0 1em ' }}>
-                Altitude Socks
-              </h5>
-            </StyledFlexRow>
-          </div>
-
-          <ItemList />
+      <StyledModal top={0} left="0" height="100%" width="35%">
+        <div>
           <hr />
-          <StyledFlexRow justify="space-between">
-            <StyledButton
-              onClick={() => {
-                setStep2(false)
-              }}
-              bg="#d9d9d9"
-              color="#000"
-              width="130px"
-            >
-              Back
-            </StyledButton>
+          <StyledRange bg="#d9d9d9" width="35%">
+            <StyledRange bg="#35bd21" width="20%" />
+          </StyledRange>
 
-            <StyledButton
-              width="230px"
-              color="#fff"
-              onClick={() => {
-                setStep3(true)
-                setStep2(false)
-              }}
-            >
-              Continue
-            </StyledButton>
+          <StyledFlexColumn
+            style={{
+              marginTop: '4em',
+            }}
+          >
+            <div>
+              {/* TODO: Functionality works, need to implement the clickable hover effect */}
+              <FaArrowLeft onClick={goBack} /> <span>Step 3 of 4</span>
+            </div>
+
+            <h3>Select add-ons</h3>
+          </StyledFlexColumn>
+
+          <StyledFlexRow
+            style={{
+              marginTop: '0.5em',
+            }}
+          >
+            <img src={Socks} alt="socks" width="20%" />
+            <h5 style={{ alignSelf: 'center', padding: '0 1em ' }}>
+              Altitude Socks
+            </h5>
           </StyledFlexRow>
-        </StyledModal>
-      )}
-      {step3 && <CustomerDetails />}
+        </div>
 
-      <Recipe />
+        <ItemList />
+        <hr />
+        <StyledFlexRow justify="space-between">
+          <StyledButton
+            onClick={goBack}
+            bg="#d9d9d9"
+            color="#000"
+            width="130px"
+          >
+            Back
+          </StyledButton>
+
+          <StyledButton
+            width="230px"
+            color="#fff"
+            onClick={() => {
+              setShowCustomerDetailsForm(true)
+            }}
+          >
+            Continue
+          </StyledButton>
+        </StyledFlexRow>
+        {showCustomerDetailsForm && (
+          <CustomerDetails
+            setShowCustomerDetailsForm={setShowCustomerDetailsForm}
+          />
+        )}
+      </StyledModal>
     </StyledFlexRow>
   )
 }

@@ -59,11 +59,7 @@ export const createAddOn = createAsyncThunk(
   'addOn/createAddOn',
   async (payload, thunkAPI) => {
     try {
-      await _createAddOn(
-        payload.name,
-        payload.price,
-        payload.photo
-      )
+      await _createAddOn(payload.name, payload.price, payload.photo)
     } catch (error) {
       console.error('error', error)
       // Set any erros while trying to fetch
@@ -72,40 +68,43 @@ export const createAddOn = createAsyncThunk(
   }
 )
 
-export const savePhoto = createAsyncThunk('addOn/savePhoto', async (payload) => {
-  const file = payload.file
+export const savePhoto = createAsyncThunk(
+  'addOn/savePhoto',
+  async (payload) => {
+    const file = payload.file
 
-  try {
-    const fileName = _appendToFilename(file.name, '_' + Date.now())
-    const uploadTask = _updloadFile(fileName, file)
+    try {
+      const fileName = _appendToFilename(file.name, '_' + Date.now())
+      const uploadTask = _updloadFile(fileName, file)
 
-    const uploadPromise = new Promise((resolve, reject) => {
-      uploadTask.on(
-        'state_changed',
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          console.log('progress:', progress)
-        },
-        (error) => {
-          reject(error)
-        },
-        () => {
-          uploadTask.snapshot.ref
-            .getDownloadURL()
-            .then((downloadURL) => resolve(downloadURL))
-            .catch(reject)
-        }
-      )
-    })
+      const uploadPromise = new Promise((resolve, reject) => {
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            console.log('progress:', progress)
+          },
+          (error) => {
+            reject(error)
+          },
+          () => {
+            uploadTask.snapshot.ref
+              .getDownloadURL()
+              .then((downloadURL) => resolve(downloadURL))
+              .catch(reject)
+          }
+        )
+      })
 
-    const downloadURL = await uploadPromise
+      const downloadURL = await uploadPromise
 
-    return downloadURL
-  } catch (error) {
-    alert('Error saving photo: ' + JSON.stringify(error))
+      return downloadURL
+    } catch (error) {
+      alert('Error saving photo: ' + JSON.stringify(error))
+    }
   }
-})
+)
 
 async function _fetchAllAddOnsFromDb() {
   const snapshot = await firebaseClient.firestore().collection('addOns').get()

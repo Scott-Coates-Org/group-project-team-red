@@ -22,6 +22,6 @@ const options = {
 
 const client = firebase.initializeApp(options)
 // Initialize Cloud Functions through Firebase
-export var functions = firebase.functions()
+export const functions = firebase.functions()
 export default client
 export { firebase }
