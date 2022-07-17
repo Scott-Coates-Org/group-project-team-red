@@ -27,8 +27,8 @@ export default function Receipt() {
 
   const calculateTax = Math.round(subTotal * 0.07 * 100) / 100
 
-  //TODO: change format of the date to e.g. Jul, 13, 2022
   //TODO: The key of ReceiptItem is the index, we should change it to ID when the cart and add ons created by the admin are displayed instead of the hard coded items
+  //TODO: Should not be possible to remove items on final stage of wizard (card details)
 
   return (
     <StyledModal top={0} left="50%" height="fit-content" width="30%">

@@ -56,7 +56,6 @@ export default function CustomerDetails({ setShowCustomerDetailsForm }) {
   //   setShowCustomerWaiver(true)
   // }
 
-  console.log('customerData', customerData)
   // console.log('customerWaiver', showCustomerWaiverRef)
 
   return (

@@ -16,11 +16,41 @@ app.use(express.static('build'))
 app.use(express.json())
 app.use(cors({ origin: 'http://localhost:3000' }))
 
-const calculateOrderAmount = (items) => {
+const calculateOrderAmount = (orderDetails) => {
   // Replace this constant with a calculation of the order's amount
   // Calculate the order total on the server to prevent
   // people from directly manipulating the amount on the client
-  return 1400
+  // TODO: V2 Change name for ID
+  // TODO: V2 priceList should not be hardcoded, it should fetch products and addOns from db
+  const priceList = {
+    'Unlimited Pass': 25,
+    'Power Pass': 21,
+    'Junior Jumpers': 15,
+    'Toddler Socks': 3.5,
+  }
+
+  const subTotal = orderDetails.productName.reduce(
+    (previousValue, currentItem) => {
+      if (Object.prototype.hasOwnProperty.call(priceList, currentItem)) {
+        if (currentItem === 'Unlimited Pass' || currentItem === 'Power Pass') {
+          return (
+            previousValue + priceList[currentItem] * orderDetails.ticketsCount
+          )
+        }
+        if (currentItem === 'Toddler Socks') {
+          return (
+            previousValue + priceList[currentItem] * orderDetails.addOnsCount
+          )
+        }
+      }
+    },
+    0
+  )
+
+  const calculateTax = Math.round(subTotal * 0.07 * 100) / 100
+  const total = (subTotal + calculateTax) * 100
+  // The amount has to be defined in cents
+  return total
 }
 
 app.post('/create-payment-intent', async (req, res) => {
@@ -36,7 +66,8 @@ app.post('/create-payment-intent', async (req, res) => {
   })
 
   res.status(200).send({
-    clientSecret: paymentIntent.client_secret,
+    // clientSecret: paymentIntent.client_secret,
+    paymentIntent,
   })
 })
 
