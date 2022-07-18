@@ -89,6 +89,7 @@ function App() {
             />
 
             <Route
+              exact
               path="/"
               render={(routeProps) => (
                 <Home {...routeProps} {...props} firebase={firebase} />
@@ -152,7 +153,7 @@ function withAuthenticationRequired(Component, options) {
             },
           }
 
-          history.push('/admin/home', opts)
+          history.push('/login', opts)
         }
       }
     }, [history, isAuthenticated, loginOptions, returnTo])

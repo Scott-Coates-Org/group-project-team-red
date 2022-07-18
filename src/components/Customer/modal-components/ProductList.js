@@ -52,10 +52,7 @@ export default function ProductList({ setShowProductModal }) {
         </StyledFlexColumn>
 
         <StyledInfoBlue>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-          culpa ab aliquam ipsa eveniet non atque dolorum, dolores numquam
-          cumque iure exercitationem quibusdam obcaecati maiores similique
-          laboriosam temporibus aspernatur tempora!
+          Select your pass types and booking time.
         </StyledInfoBlue>
         <StyledFlexColumn>
           <h4>Jump pass options</h4>
