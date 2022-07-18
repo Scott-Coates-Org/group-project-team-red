@@ -6,7 +6,7 @@ const functions = require('firebase-functions')
 const express = require('express')
 const cors = require('cors')
 const app = express()
-require('dotenv').config() // Uncomment this for localhost
+// require('dotenv').config() // Uncomment this for localhost
 // admin.initializeApp()
 
 // This is your test secret API key.
@@ -63,6 +63,7 @@ app.post('/create-payment-intent', async (req, res) => {
     automatic_payment_methods: {
       enabled: true,
     },
+    receipt_email: 'jojawhi@gmail.com',
   })
 
   res.status(200).send({

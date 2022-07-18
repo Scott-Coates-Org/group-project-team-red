@@ -80,7 +80,6 @@ export default function PaymentDetails() {
       elements,
       confirmParams: {
         return_url: 'http://localhost:3000/thankyou',
-        receipt_email: 'jojawhi@gmail.com',
       },
 
       // Uncomment below if you only want redirect for redirect-based payments

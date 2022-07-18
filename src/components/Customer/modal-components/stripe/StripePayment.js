@@ -7,7 +7,7 @@ import { Elements } from '@stripe/react-stripe-js'
 //components
 import PaymentDetails from './PaymentDetails'
 import { useDispatch, useSelector } from 'react-redux'
-import { createBooking } from 'redux/bokingDetails'
+import { createBooking } from 'redux/bookingDetails'
 
 const stripePromise = loadStripe(
   'pk_test_51IszQADm1KpFnZprJ0aeZfHzmokzHu9WjQYqClLzgO8w9uIc8SU5AeyKED7Qx1hgnYFIL1yOmK4MhykBlmQ3iD0t00jVrr0SJb'

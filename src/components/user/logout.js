@@ -8,7 +8,7 @@ export default function Logout(props) {
       .auth()
       .signOut()
       .then(() => {
-        props.history.replace('/login')
+        props.history.replace('/')
       })
   }, [props.history])
 

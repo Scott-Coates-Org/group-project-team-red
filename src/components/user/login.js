@@ -27,7 +27,7 @@ export default function Login(props) {
     if (user) {
       // props.location.state.appState.returnTo now is null because unauthorized users (not admins) don't exist in our application at the moment
       // const returnTo = props.location.state.appState.returnTo || '/admin'
-      const returnTo = '/home'
+      const returnTo = '/admin/home'
 
       props.history.replace(returnTo)
     }
@@ -177,7 +177,7 @@ function EmailLogin(props) {
     signInFlow: 'popup',
     // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
     // props.location.state.appState never exists because at the moment the setter is unreachable code
-    signInSuccessUrl: '/admin/home', // props.location.state.appState.returnTo || '/',
+    signInSuccessUrl: props.location.state.appState.returnTo || '/',
     // We will display Google and Facebook as auth providers.
     signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
   }
