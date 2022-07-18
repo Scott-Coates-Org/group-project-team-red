@@ -88,18 +88,6 @@ function App() {
               )}
             />
 
-            {/* dummy route for seeing waiver */}
-            {/* <Route
-              path="/waiver"
-              render={(routeProps) => (
-                <CustomerWaiver
-                  {...routeProps}
-                  {...props}
-                  firebase={firebase}
-                />
-              )}
-            /> */}
-
             <Route
               path="/"
               render={(routeProps) => (
@@ -164,7 +152,7 @@ function withAuthenticationRequired(Component, options) {
             },
           }
 
-          history.push('/admin', opts)
+          history.push('/admin/home', opts)
         }
       }
     }, [history, isAuthenticated, loginOptions, returnTo])
