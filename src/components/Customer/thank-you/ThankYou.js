@@ -1,28 +1,34 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 //styles
 import { StyledContainer } from '../styled/Container.styles'
 import { StyledFlexColumn } from '../styled/FlexColumn.styles'
 import Confetti from 'react-confetti'
-import { useDispatch } from 'react-redux'
-import { getSingleBookingObj } from 'redux/bookingDetails'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  getSingleBookingObj,
+  updateBookingBillingStatus,
+} from 'redux/bookingDetails'
 
 export default function ThankYou() {
-  const [bookingData, setBookingData] = useState(null)
+  // eslint-disable-next-line no-unused-vars
   const dispatch = useDispatch()
+
+  const { data: bookingData, isLoaded: bookingIsLoaded } = useSelector(
+    ({ bookingDetails }) => bookingDetails
+  )
 
   // TODO: If not found should redirect to cancel page (actually the whole payment system should be implemented with webhooks, which will save us this step)
   useEffect(() => {
     const bookingId = new URLSearchParams(window.location.search).get(
       'payment_intent'
     )
-
     dispatch(getSingleBookingObj(bookingId)).then((res) => {
-      setBookingData(res.payload)
-      console.log(res.payload)
+      dispatch(updateBookingBillingStatus(...res.payload))
     })
-    // .then(dispatch()) //add booking data dispatch here?
   }, [])
+
+  if (!bookingIsLoaded) return <div>Your payment is being processed</div>
 
   return (
     <StyledContainer
