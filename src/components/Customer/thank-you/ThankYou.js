@@ -9,9 +9,9 @@ import {
   getSingleBookingObj,
   updateBookingBillingStatus,
 } from 'redux/bookingDetails'
+import moment from 'moment'
 
 export default function ThankYou() {
-  // eslint-disable-next-line no-unused-vars
   const dispatch = useDispatch()
 
   const { data: bookingData, isLoaded: bookingIsLoaded } = useSelector(
@@ -49,7 +49,7 @@ export default function ThankYou() {
         }}
       >
         <h1>Thank you</h1>
-        {bookingData &&
+        {bookingData[0].billingStatus === 'Payed' &&
           bookingData.map((booking) => (
             <div
               key={booking.id}
@@ -70,8 +70,12 @@ export default function ThankYou() {
                   })}
                 </div>
               </div>
-              <br />
-              {/* <p>Date of transaction {booking.orderDetails.orderDate}</p> */}
+              <p>
+                Date of transaction:{' '}
+                {moment
+                  .unix(booking.orderDetails.orderDate)
+                  .format('MMMM, DD, YYYY')}
+              </p>
             </div>
           ))}
       </StyledFlexColumn>
