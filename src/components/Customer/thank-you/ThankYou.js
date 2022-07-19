@@ -10,6 +10,7 @@ import {
   updateBookingBillingStatus,
 } from 'redux/bookingDetails'
 import moment from 'moment'
+import { updateSelectedDateTimeslots } from 'redux/calendar'
 
 export default function ThankYou() {
   const dispatch = useDispatch()
@@ -23,9 +24,12 @@ export default function ThankYou() {
     const bookingId = new URLSearchParams(window.location.search).get(
       'payment_intent'
     )
-    dispatch(getSingleBookingObj(bookingId)).then((res) => {
-      dispatch(updateBookingBillingStatus(...res.payload))
-    })
+    dispatch(getSingleBookingObj(bookingId))
+      .then((res) => {
+        dispatch(updateBookingBillingStatus(...res.payload))
+        dispatch(updateSelectedDateTimeslots(...res.payload))
+      })
+      .catch((err) => console.error(err))
   }, [])
 
   if (!bookingIsLoaded) return <div>Your payment is being processed</div>
@@ -68,6 +72,7 @@ export default function ThankYou() {
                   {booking.orderDetails.productName.map((product) => {
                     return <p key={product}>{product}</p>
                   })}
+                  <h5>Tickets: {booking.orderDetails.ticketsCount}</h5>
                 </div>
               </div>
               <p>
