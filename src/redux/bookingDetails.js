@@ -155,6 +155,23 @@ export const createBooking = createAsyncThunk(
   }
 )
 
+export const updateBookingBillingStatus = createAsyncThunk(
+  'booking/updateBillingStatus',
+  async (bookingObj, thunkAPI) => {
+    thunkAPI.dispatch(updateData())
+    try {
+      const newBookingObj = { ...bookingObj }
+      newBookingObj.billingStatus = 'Payed'
+      await _updateBookingBillingStatus(newBookingObj)
+      thunkAPI.dispatch(updateDataSuccess([newBookingObj]))
+    } catch (error) {
+      console.error('error', error)
+      // Set any erros while trying to fetch
+      thunkAPI.dispatch(createDataFailure())
+    }
+  }
+)
+
 async function _fetchAllBookingsFromDb() {
   const snapshot = await firebaseClient.firestore().collection('bookings').get()
 
@@ -183,4 +200,14 @@ async function _createBooking(bookingObj) {
     .set(bookingObj)
 
   return doc
+}
+
+const _updateBookingBillingStatus = async (bookingObj) => {
+  await firebaseClient
+    .firestore()
+    .collection('bookings')
+    .doc(bookingObj.id)
+    .update({
+      billingStatus: bookingObj.billingStatus,
+    })
 }

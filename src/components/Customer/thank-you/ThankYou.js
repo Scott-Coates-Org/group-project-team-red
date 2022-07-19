@@ -1,28 +1,38 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 //styles
 import { StyledContainer } from '../styled/Container.styles'
 import { StyledFlexColumn } from '../styled/FlexColumn.styles'
 import Confetti from 'react-confetti'
-import { useDispatch } from 'react-redux'
-import { getSingleBookingObj } from 'redux/bookingDetails'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  getSingleBookingObj,
+  updateBookingBillingStatus,
+} from 'redux/bookingDetails'
+import moment from 'moment'
+import { updateSelectedDateTimeslots } from 'redux/calendar'
 
 export default function ThankYou() {
-  const [bookingData, setBookingData] = useState(null)
   const dispatch = useDispatch()
+
+  const { data: bookingData, isLoaded: bookingIsLoaded } = useSelector(
+    ({ bookingDetails }) => bookingDetails
+  )
 
   // TODO: If not found should redirect to cancel page (actually the whole payment system should be implemented with webhooks, which will save us this step)
   useEffect(() => {
     const bookingId = new URLSearchParams(window.location.search).get(
       'payment_intent'
     )
-
-    dispatch(getSingleBookingObj(bookingId)).then((res) => {
-      setBookingData(res.payload)
-      console.log(res.payload)
-    })
-    // .then(dispatch()) //add booking data dispatch here?
+    dispatch(getSingleBookingObj(bookingId))
+      .then((res) => {
+        dispatch(updateBookingBillingStatus(...res.payload))
+        dispatch(updateSelectedDateTimeslots(...res.payload))
+      })
+      .catch((err) => console.error(err))
   }, [])
+
+  if (!bookingIsLoaded) return <div>Your payment is being processed</div>
 
   return (
     <StyledContainer
@@ -43,7 +53,7 @@ export default function ThankYou() {
         }}
       >
         <h1>Thank you</h1>
-        {bookingData &&
+        {bookingData[0].billingStatus === 'Payed' &&
           bookingData.map((booking) => (
             <div
               key={booking.id}
@@ -62,10 +72,15 @@ export default function ThankYou() {
                   {booking.orderDetails.productName.map((product) => {
                     return <p key={product}>{product}</p>
                   })}
+                  <h5>Tickets: {booking.orderDetails.ticketsCount}</h5>
                 </div>
               </div>
-              <br />
-              {/* <p>Date of transaction {booking.orderDetails.orderDate}</p> */}
+              <p>
+                Date of transaction:{' '}
+                {moment
+                  .unix(booking.orderDetails.orderDate)
+                  .format('MMMM, DD, YYYY')}
+              </p>
             </div>
           ))}
       </StyledFlexColumn>

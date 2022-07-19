@@ -109,7 +109,7 @@ export function Times({ room }) {
     <StyledFlexColumn className="times">
       <StyledFlexRow>
         {timeSlots.map((timeSlot) => {
-          if (timeSlot[1] - cart[0].quantity > 0)
+          if (timeSlot[1] - cart[0].quantity >= 0)
             return (
               <StyledBox key={timeSlot[0]} onClick={(e) => handleClick(e)}>
                 {timeSlot[0]}

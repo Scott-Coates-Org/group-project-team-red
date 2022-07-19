@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import firebaseClient from 'firebase/client'
 import firebase from 'firebase/app'
+import moment from 'moment'
 
 const initialState = {
   data: {},
@@ -128,7 +130,45 @@ export const updateSelectedDateTimeslots = createAsyncThunk(
   async (bookingObj, thunkAPI) => {
     thunkAPI.dispatch(updateData())
     try {
-      // TODO
+      const { startingTime, ticketsCount, productName, date, room } =
+        bookingObj.orderDetails
+      const selectedDate = await _getSelectedDateData(date)
+      const timeSlots = selectedDate[0][room].timeSlots
+      let newTimeSlots = {}
+      const startingTimeMoment = moment(startingTime, 'HH:mm')
+
+      if (productName.includes('Unlimited Pass')) {
+        // TODO: Change this in V2 when more than one type of ticket can be bought
+        for (const [timeSlot, headCount] of Object.entries(timeSlots)) {
+          if (moment(timeSlot, 'HH:mm') < startingTimeMoment) {
+            newTimeSlots[timeSlot] = headCount
+          } else {
+            newTimeSlots[timeSlot] = headCount - ticketsCount
+          }
+        }
+      }
+      const endingTimeMoment = moment(startingTime, 'HH:mm').add(2, 'hours')
+      if (productName.includes('Power Pass')) {
+        // TODO: Change this in V2 when more than one type of ticket can be bought
+        for (const [timeSlot, headCount] of Object.entries(timeSlots)) {
+          if (
+            moment(timeSlot, 'HH:mm') < startingTimeMoment ||
+            moment(timeSlot, 'HH:mm') >= endingTimeMoment
+          ) {
+            newTimeSlots[timeSlot] = headCount
+          } else {
+            newTimeSlots[timeSlot] = headCount - ticketsCount
+          }
+        }
+      }
+
+      const data = await _updateTimeSlotsCapacity({
+        id: date,
+        room,
+        newTimeSlots,
+      })
+
+      thunkAPI.dispatch(updateDataSuccess())
     } catch (error) {
       thunkAPI.dispatch(getDataFailure(error))
     }
@@ -145,4 +185,15 @@ const _getSelectedDateData = async (selectedDate) => {
   const data = snapshot.docs.map((doc) => doc.data())
 
   return data
+}
+
+const _updateTimeSlotsCapacity = async (timeSlotsObj) => {
+  // let timeSlotsUpdate = {}
+  // timeSlotsUpdate[`${timeSlotsObj.room}.timeSlots`] = timeSlotsObj.newTimeSlots
+
+  const snapshot = await firebaseClient
+    .firestore()
+    .collection('dates')
+    .doc(timeSlotsObj.id)
+    .update({ [`${timeSlotsObj.room}.timeSlots`]: timeSlotsObj.newTimeSlots })
 }
