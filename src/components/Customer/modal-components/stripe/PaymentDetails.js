@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-// import axios from 'axios'
 
 //style
 import { StyledModal } from '../../styled/Modal.styles'
@@ -14,14 +13,26 @@ import { FaLock } from 'react-icons/fa'
 
 //stripe
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
-// import Receipt from 'components/Customer/modals/Receipt'
-
-//NOTE: some of this imports and set ups should be done in layout component but when I did it there the Card input field wasn't rendering in this modal
+import { useSelector } from 'react-redux'
 
 //components showing payment details
 export default function PaymentDetails() {
   //price should be taken from the recipe total
-  const price = 82.29
+  const { data: cartData, isLoaded: cartIsLoaded } = useSelector(
+    ({ cart }) => cart
+  )
+
+  if (!cartIsLoaded) return <div>...loading</div>
+
+  const subTotal = cartData.reduce(
+    (previousValue, currentItem) =>
+      previousValue + currentItem.price * currentItem.quantity,
+    0
+  )
+
+  const calculateTax = Math.round(subTotal * 0.07 * 100) / 100
+
+  const price = subTotal + calculateTax
 
   //needed vars
   const stripe = useStripe()
@@ -79,7 +90,8 @@ export default function PaymentDetails() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'http://localhost:3000/thankyou',
+        // return_url: 'http://localhost:3000/thankyou', // For DEVELOPMENT
+        return_url: 'https://team-red-1ccfb.web.app/thankyou', // For PRODUCTION
       },
 
       // Uncomment below if you only want redirect for redirect-based payments
@@ -101,8 +113,8 @@ export default function PaymentDetails() {
       <StyledModal top={0} left="0" height="100%" width="45%">
         <div>
           <hr />
-          <StyledRange bg="#d9d9d9" width="35%">
-            <StyledRange bg="#35bd21" width="35%" />
+          <StyledRange bg="#d9d9d9" width="40%">
+            <StyledRange bg="#35bd21" width="40%" />
           </StyledRange>
 
           <StyledFlexColumn
@@ -112,7 +124,7 @@ export default function PaymentDetails() {
           >
             <div>
               {/* <FaArrowLeft /> */}
-              <span>Step 4 of 4</span>
+              <span>Step 5 of 5</span>
             </div>
 
             <h3>Select payment details</h3>

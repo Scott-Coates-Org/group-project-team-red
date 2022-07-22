@@ -41,7 +41,8 @@ export default function StripePayment({ setShowPaymentPage }) {
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     fetch(
-      'http://localhost:5000/team-red-1ccfb/us-central1/stripe/create-payment-intent',
+      // 'http://localhost:5000/team-red-1ccfb/us-central1/stripe/create-payment-intent', // For DEVELOPMENT
+      'https://us-central1-team-red-1ccfb.cloudfunctions.net/stripe/create-payment-intent', // For PRODUCTION
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

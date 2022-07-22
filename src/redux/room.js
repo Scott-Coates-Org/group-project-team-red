@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // https://dev.to/thatgalnatalie/how-to-get-started-with-redux-toolkit-41e
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import firebaseClient from 'firebase/client'
@@ -12,9 +13,7 @@ const room = createSlice({
   name: 'room',
   initialState,
   reducers: {
-    getData: (state) => {
-      console.log(state)
-    },
+    getData: (state) => {},
 
     getDataSuccess: (state, action) => {
       state.isLoaded = true
@@ -24,7 +23,6 @@ const room = createSlice({
     getDataFailure: (state, action) => {
       state.isLoaded = true
       state.hasErrors = true
-      console.log(action)
     },
 
     createDataFailure: (state) => {
@@ -59,11 +57,7 @@ export const createRoom = createAsyncThunk(
   'room/createRoom',
   async (payload, thunkAPI) => {
     try {
-      await _createRoom(
-        payload.name,
-        payload.capacity,
-        payload.photo
-      )
+      await _createRoom(payload.name, payload.capacity, payload.photo)
     } catch (error) {
       console.error('error', error)
       // Set any erros while trying to fetch
@@ -85,7 +79,6 @@ export const savePhoto = createAsyncThunk('room/savePhoto', async (payload) => {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          console.log('progress:', progress)
         },
         (error) => {
           reject(error)

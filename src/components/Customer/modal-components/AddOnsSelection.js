@@ -25,11 +25,11 @@ export default function AddOnsSelection({ setShowAddOns }) {
 
   return (
     <StyledFlexRow>
-      <StyledModal top={0} left="0" height="100%" width="35%">
+      <StyledModal top={0} left="0" height="100%" width="45%">
         <div>
           <hr />
-          <StyledRange bg="#d9d9d9" width="35%">
-            <StyledRange bg="#35bd21" width="20%" />
+          <StyledRange bg="#d9d9d9" width="40%">
+            <StyledRange bg="#35bd21" width="16%" />
           </StyledRange>
 
           <StyledFlexColumn
@@ -39,7 +39,7 @@ export default function AddOnsSelection({ setShowAddOns }) {
           >
             <div>
               {/* TODO: Functionality works, need to implement the clickable hover effect */}
-              <FaArrowLeft onClick={goBack} /> <span>Step 3 of 4</span>
+              <FaArrowLeft onClick={goBack} /> <span>Step 2 of 5</span>
             </div>
 
             <h3>Select add-ons</h3>

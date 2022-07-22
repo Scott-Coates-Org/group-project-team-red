@@ -60,13 +60,13 @@ export default function CustomerWaiver({ setShowCustomerWaiver }) {
             }}
           >
             <hr />
-            <StyledRange bg="#d9d9d9" width="35%">
-              <StyledRange bg="#35bd21" width="20%" />
+            <StyledRange bg="#d9d9d9" width="40%">
+              <StyledRange bg="#35bd21" width="32%" />
             </StyledRange>
             <div>
               {/* TODO: Functionality works, need to implement the clickable hover effect */}
               <FaArrowLeft onClick={() => setShowCustomerWaiver(false)} />
-              <span>Step 2 of 4</span>
+              <span>Step 4 of 5</span>
             </div>
           </StyledFlexColumn>
         </StyledFlexColumn>

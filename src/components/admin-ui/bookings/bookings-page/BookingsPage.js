@@ -35,12 +35,10 @@ const BookingsPage = () => {
     // https://redux-toolkit.js.org/api/createAsyncThunk#unwrapping-result-actions
     dispatch(fetchAllBookings())
   }, [dispatch])
-  console.log(bookingsData)
 
   //format fetched Data
   const formatData = (dataToFormat) => {
     const formattedData = []
-    console.log(dataToFormat)
     dataToFormat.forEach((item) => {
       const {
         date,
@@ -57,7 +55,6 @@ const BookingsPage = () => {
       } = item.customerDetails.customerData
       // const formattedDate = Date(date, 'mm:dd:yyyy')
       // const formattedTime = Date(time, 'hh:mm')
-      console.log(date, time)
       const bookingName = firstName + ' ' + lastName
       formattedData.push({
         date,
@@ -70,15 +67,12 @@ const BookingsPage = () => {
         email,
       })
     })
-    console.log('data to Format: ', dataToFormat)
-    console.log('formattedData: ', formattedData)
     return formattedData
   }
 
   useEffect(() => {
     if (bookingsData.length > 0) {
       setBookingsDisplayData(formatData(bookingsData))
-      console.log('data to render: ', bookingsDisplayData)
     }
     setBookingsIsFormatted(true)
   }, [bookingsData])

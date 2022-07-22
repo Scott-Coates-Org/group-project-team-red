@@ -29,7 +29,7 @@ export default function ProductList({ setShowProductModal }) {
   }
 
   return (
-    <StyledModal id="step2" width="35%" height="100%">
+    <StyledModal id="step1" width="45%" height="100%">
       <StyledFlexColumn
         style={{ borderTop: ' 2px solid #888', display: 'block' }}
       >
@@ -39,13 +39,13 @@ export default function ProductList({ setShowProductModal }) {
           }}
         >
           <hr />
-          <StyledRange bg="#d9d9d9" width="35%">
-            <StyledRange bg="#35bd21" width="20%" />
+          <StyledRange bg="#d9d9d9" width="40%">
+            <StyledRange bg="#35bd21" width="8%" />
           </StyledRange>
           <div>
             {/* TODO: Functionality works, need to implement the clickable hover effect */}
             <FaArrowLeft onClick={goBack} />
-            <span>Step 2 of 4</span>
+            <span>Step 1 of 5</span>
           </div>
 
           <h3>Choose Product</h3>

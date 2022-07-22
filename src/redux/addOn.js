@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // https://dev.to/thatgalnatalie/how-to-get-started-with-redux-toolkit-41e
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import firebaseClient from 'firebase/client'
@@ -12,9 +13,7 @@ const addOn = createSlice({
   name: 'addOn',
   initialState,
   reducers: {
-    getData: (state) => {
-      console.log(state)
-    },
+    getData: (state) => {},
 
     getDataSuccess: (state, action) => {
       state.isLoaded = true
@@ -24,7 +23,6 @@ const addOn = createSlice({
     getDataFailure: (state, action) => {
       state.isLoaded = true
       state.hasErrors = true
-      console.log(action)
     },
 
     createDataFailure: (state) => {
@@ -83,7 +81,6 @@ export const savePhoto = createAsyncThunk(
           (snapshot) => {
             const progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            console.log('progress:', progress)
           },
           (error) => {
             reject(error)

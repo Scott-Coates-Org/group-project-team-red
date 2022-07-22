@@ -46,17 +46,8 @@ export default function CustomerDetails({ setShowCustomerDetailsForm }) {
       dispatch(
         setCustomerData({ firstName, lastName, email, cellNumber, zipCode })
       )
-      // setNewUser({ firstName, lastName, email, cellNumber, zipCode })
-      // showCustomerWaiverRef.current = true
     }
   }
-
-  // We don't set step 3 to false because step 4 is not loaded until receiving the response from create payment intent
-  // const handleContinue = () => {
-  //   setShowCustomerWaiver(true)
-  // }
-
-  // console.log('customerWaiver', showCustomerWaiverRef)
 
   return (
     <StyledFlexRow>
